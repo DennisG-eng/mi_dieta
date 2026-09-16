@@ -1,0 +1,1705 @@
+<!doctype html>
+<title>Plan Semanal</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #EDF0EB;
+  --surface: #FFFFFF;
+  --surface-2: #E4E9E1;
+  --border: #CDD5C9;
+  --text: #161D14;
+  --text-2: #566054;
+  --text-3: #8E9E8A;
+  --accent: #1A4830;
+  --accent-mid: #2C7A4E;
+  --accent-light: #E9F1EB;
+  --gold: #9B7519;
+  --gold-bg: #FBF4E2;
+  --pilates: #5A3E8A;
+  --pilates-bg: #EEE9F8;
+  --walk: #1A6857;
+  --walk-bg: #E6F3EF;
+  --rest: #7A8E78;
+  --rest-bg: #EEF1EC;
+  --r: 14px;
+  --r-sm: 8px;
+  --sh: 0 2px 12px rgba(22,29,20,.07);
+  --sh-lg: 0 8px 32px rgba(22,29,20,.13);
+  --ease: .2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0C1310;
+    --surface: #152018;
+    --surface-2: #1C2B1E;
+    --border: #283826;
+    --text: #D6E4D0;
+    --text-2: #8BAA84;
+    --text-3: #587052;
+    --accent: #4DB87A;
+    --accent-mid: #5ED08A;
+    --accent-light: #162A1E;
+    --gold: #D4A835;
+    --gold-bg: #261F0C;
+    --pilates: #A07ED8;
+    --pilates-bg: #1C1530;
+    --walk: #44BFA0;
+    --walk-bg: #0E2420;
+    --rest: #587052;
+    --rest-bg: #131A12;
+    --sh: 0 2px 12px rgba(0,0,0,.35);
+    --sh-lg: 0 8px 32px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0C1310;
+  --surface: #152018;
+  --surface-2: #1C2B1E;
+  --border: #283826;
+  --text: #D6E4D0;
+  --text-2: #8BAA84;
+  --text-3: #587052;
+  --accent: #4DB87A;
+  --accent-mid: #5ED08A;
+  --accent-light: #162A1E;
+  --gold: #D4A835;
+  --gold-bg: #261F0C;
+  --pilates: #A07ED8;
+  --pilates-bg: #1C1530;
+  --walk: #44BFA0;
+  --walk-bg: #0E2420;
+  --rest: #587052;
+  --rest-bg: #131A12;
+  --sh: 0 2px 12px rgba(0,0,0,.35);
+  --sh-lg: 0 8px 32px rgba(0,0,0,.45);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.app{min-height:100%;display:flex;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,0px)}
+
+/* HEADER */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:100;background:var(--surface);border-bottom:1px solid var(--border)}
+.hdr{max-width:1000px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:62px;gap:12px}
+.logo-eyebrow{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.14em;color:var(--text-3)}
+.logo-name{font-family:'Cormorant Garamond',Georgia,serif;font-size:21px;font-weight:600;color:var(--accent);letter-spacing:-.01em}
+.week-nav{display:flex;align-items:center;gap:10px}
+.wlabel{font-size:13px;font-weight:500;min-width:68px;text-align:center;color:var(--text)}
+.wnav-btn{width:30px;height:30px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--text-2);display:flex;align-items:center;justify-content:center;font-size:15px;transition:var(--ease)}
+.wnav-btn:hover{background:var(--surface-2);color:var(--text)}
+.hdr-actions{display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 16px;border-radius:24px;font-size:13px;font-weight:500;border:none;transition:var(--ease)}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--text-2)}
+.btn-ghost:hover{background:var(--surface-2);color:var(--text)}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{opacity:.85}
+.btn-active{background:var(--accent);color:#fff;border-color:transparent}
+
+/* DAY NAV */
+.daynav-wrap{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.daynav-wrap::-webkit-scrollbar{display:none}
+.daynav{max-width:1000px;margin:0 auto;padding:10px 20px;display:flex;gap:6px}
+.day-pill{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 12px;border-radius:12px;border:1.5px solid transparent;background:transparent;min-width:58px;flex-shrink:0;transition:var(--ease)}
+.day-pill:hover{background:var(--surface-2)}
+.day-pill.active{background:var(--accent-light);border-color:var(--accent)}
+.dp-short{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3)}
+.day-pill.active .dp-short{color:var(--accent)}
+.dp-num{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);line-height:1}
+.day-pill.active .dp-num{color:var(--accent)}
+.dp-badge{font-size:8px;font-weight:700;padding:1px 5px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em;margin-top:1px}
+.dp-pilates{background:var(--pilates-bg);color:var(--pilates)}
+.dp-walk{background:var(--walk-bg);color:var(--walk)}
+.dp-rest{background:var(--rest-bg);color:var(--rest)}
+
+/* MAIN */
+.main{flex:1;max-width:1000px;margin:0 auto;width:100%;padding:24px 20px}
+
+/* DAY HEADER */
+.day-hdr{margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.day-hdr-left{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.day-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:500;line-height:1}
+.exc-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:600}
+.exc-pilates{background:var(--pilates-bg);color:var(--pilates)}
+.exc-walk{background:var(--walk-bg);color:var(--walk)}
+.exc-rest{background:var(--rest-bg);color:var(--rest)}
+.kcal-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;background:var(--surface-2);font-size:11px;font-weight:500;color:var(--text-2);font-family:'DM Mono',monospace}
+
+/* MEAL GRID */
+.meal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.meal-card{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;cursor:pointer;transition:box-shadow var(--ease),transform var(--ease);display:flex;flex-direction:column}
+.meal-card:hover{box-shadow:var(--sh);transform:translateY(-2px)}
+.mc-type{padding:14px 16px 0;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3)}
+.mc-name{padding:6px 16px 14px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;line-height:1.2;color:var(--text);flex:1}
+.mc-footer{display:flex;align-items:center;justify-content:space-between;padding:9px 16px;border-top:1px solid var(--border);background:var(--surface-2)}
+.mc-kcal{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);font-variant-numeric:tabular-nums}
+.mc-right{display:flex;align-items:center;gap:6px}
+.mc-prep{font-size:10px;color:var(--text-3)}
+.mc-prep-tag{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;background:var(--gold-bg);color:var(--gold);text-transform:uppercase;letter-spacing:.04em}
+.mc-arrow{color:var(--text-3);font-size:12px}
+
+/* Cena card larger */
+.meal-card.cena-card{grid-column:span 2}
+
+/* SHOPPING VIEW */
+.shopping-hdr{margin-bottom:20px}
+.shop-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:4px}
+.shop-sub{font-size:13px;color:var(--text-2);margin-bottom:16px}
+.trip-tabs{display:flex;flex-direction:column;gap:8px;margin-bottom:20px}
+.trip-tabs-row{display:flex;border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.trip-tab{flex:1;padding:14px 18px;background:var(--surface);border:none;font-family:inherit;cursor:pointer;transition:var(--ease);text-align:left;border-right:1px solid var(--border)}
+.trip-tab:last-child{border-right:none}
+.trip-tab.active{background:var(--accent-light)}
+.trip-tab-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-3);margin-bottom:3px}
+.trip-tab.active .trip-tab-label{color:var(--accent)}
+.trip-tab-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:500;color:var(--text)}
+.trip-tab.active .trip-tab-name{color:var(--accent)}
+.trip-tab-desc{font-size:11px;color:var(--text-3);margin-top:2px}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.shop-cat{background:var(--surface);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.cat-hdr{padding:12px 18px;background:var(--surface-2);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+.cat-icon{font-size:17px}
+.cat-name{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text)}
+.cat-count{font-size:11px;color:var(--text-3);font-family:'DM Mono',monospace;margin-left:auto}
+.cat-items{padding:4px 0}
+.shop-item{display:flex;align-items:flex-start;gap:10px;padding:8px 18px;cursor:pointer;transition:background var(--ease)}
+.shop-item:hover{background:var(--surface-2)}
+.shop-item.checked{opacity:.38}
+.si-check{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--accent);transition:var(--ease)}
+.shop-item.checked .si-check{background:var(--accent);border-color:var(--accent);color:#fff}
+.si-info{flex:1;min-width:0}
+.si-name{font-size:14px;color:var(--text)}
+.si-qty{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);margin-top:1px;font-variant-numeric:tabular-nums}
+.si-sub{font-size:11px;color:var(--text-3);margin-top:2px;font-style:italic}
+
+/* PROGRESS BAR */
+.day-progress{margin:0 0 20px;padding:13px 16px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}
+.prog-bar-wrap{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;margin-bottom:8px}
+.prog-bar{height:100%;background:var(--accent-mid);border-radius:3px;transition:width .5s cubic-bezier(.34,1.56,.64,1)}
+.prog-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text-2);font-family:'DM Mono',monospace;font-variant-numeric:tabular-nums}
+.prog-sub{font-size:11px;color:var(--text-3);margin-top:5px}
+
+/* MEAL DONE */
+.meal-card.done{border-color:var(--accent);background:var(--accent-light)}
+.meal-card.done .mc-name{opacity:.7}
+.meal-card.disliked{border-color:#E8AAAA}
+.meal-card.disliked .mc-name{text-decoration:line-through;opacity:.5}
+.mc-done-wrap{padding:8px 14px 10px;display:flex;align-items:center;gap:6px}
+.mc-done-btn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:5px 10px;border-radius:20px;font-size:11px;font-weight:600;border:1.5px solid var(--border);background:transparent;color:var(--text-3);transition:var(--ease);cursor:pointer;font-family:inherit}
+.mc-done-btn:hover{border-color:var(--accent);color:var(--accent)}
+.mc-done-btn.done{background:var(--accent);border-color:var(--accent);color:#fff}
+.mc-dislike-btn{flex-shrink:0;padding:4px 8px;border-radius:20px;border:1.5px solid transparent;background:transparent;color:var(--text-3);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;transition:var(--ease);font-family:inherit;white-space:nowrap}
+.mc-dislike-btn:hover{background:var(--surface-2);color:var(--text-2);border-color:var(--border)}
+.mc-dislike-btn.active{background:#FFEDED;border-color:#E8AAAA;color:#C44}
+.mc-alt-badge{padding:5px 14px;background:var(--gold-bg);font-size:10px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--border)}
+
+/* PANTRY */
+.si-pantry-btn{flex-shrink:0;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);background:transparent;color:var(--text-3);font-size:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--ease);line-height:1;font-family:inherit}
+.si-pantry-btn:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-bg)}
+.si-pantry-btn.in-pantry{background:var(--gold-bg);border-color:var(--gold);color:var(--gold)}
+.shop-item.pantry-item{opacity:.4}
+.shop-item.pantry-item .si-name::after{content:' · ya tengo';font-size:10px;color:var(--gold);font-style:italic;font-weight:600}
+.si-reuse{font-size:10px;margin-top:4px;display:inline-flex;align-items:center;gap:4px;font-family:'DM Mono',monospace;font-weight:500;padding:2px 7px;border-radius:20px;width:fit-content}
+.si-reuse.all{background:var(--accent-light);color:var(--accent-mid)}
+.si-reuse.multi{background:var(--surface-2);color:var(--text-3)}
+.si-reuse.solo{background:#FFF3E0;color:#B46A00}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .si-reuse.solo{background:#2A1800;color:#E8962A}}
+:root[data-theme="dark"] .si-reuse.solo{background:#2A1800;color:#E8962A}
+
+/* MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(8,18,8,.52);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s ease}
+.modal-ov.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:700px;max-height:90vh;overflow-y:auto;transform:translateY(44px);transition:transform .3s cubic-bezier(.32,.72,0,1);padding-bottom:env(safe-area-inset-bottom,24px);position:relative}
+.modal-ov.open .modal{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:14px auto 0}
+.modal-close{position:absolute;top:14px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--surface-2);border:none;color:var(--text-2);display:flex;align-items:center;justify-content:center;font-size:17px;transition:var(--ease)}
+.modal-close:hover{background:var(--border);color:var(--text)}
+.m-hdr{padding:20px 24px 0}
+.m-mtype{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);margin-bottom:6px}
+.m-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:500;line-height:1.15;color:var(--text);text-wrap:balance;margin-bottom:12px}
+.m-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+.m-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-family:'DM Mono',monospace;background:var(--surface-2);color:var(--text-2)}
+.m-chip.accent{background:var(--accent-light);color:var(--accent);font-weight:500}
+.m-chip.gold{background:var(--gold-bg);color:var(--gold);font-weight:600}
+.macros{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 24px 18px}
+.macro{background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px;text-align:center}
+.macro-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;color:var(--text);font-variant-numeric:tabular-nums}
+.macro-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.07em;color:var(--text-3);margin-top:2px}
+.m-sec{padding:0 24px 20px}
+.m-sec-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.11em;color:var(--text-3);margin-bottom:12px}
+.ing-list{list-style:none}
+.ing-row{display:flex;align-items:baseline;gap:10px;padding:7px 0;border-bottom:1px solid var(--border);font-size:14px}
+.ing-row:last-child{border-bottom:none}
+.ing-qty{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);min-width:72px;flex-shrink:0;font-variant-numeric:tabular-nums}
+.ing-name{color:var(--text)}
+.step-list{display:flex;flex-direction:column;gap:12px}
+.step{display:flex;gap:12px}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--accent);min-width:22px;flex-shrink:0;line-height:1.3}
+.step-txt{font-size:14px;line-height:1.6;color:var(--text-2);padding-top:2px}
+
+/* RESPONSIVE */
+@media(max-width:740px){.meal-grid{grid-template-columns:1fr 1fr}.meal-card.cena-card{grid-column:span 2}}
+@media(max-width:500px){
+  .hdr{height:54px}
+  .meal-grid{grid-template-columns:1fr 1fr}
+  .meal-card.cena-card{grid-column:span 2}
+  .shop-grid{grid-template-columns:1fr}
+  .macros{grid-template-columns:repeat(4,1fr)}
+  .hdr-actions .btn-ghost{display:none}
+}
+@media(max-width:380px){.meal-grid{grid-template-columns:1fr}.meal-card.cena-card{grid-column:span 1}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+</style>
+
+<div class="app">
+  <header>
+    <div class="hdr">
+      <div>
+        <div class="logo-eyebrow">Dieta personalizada</div>
+        <div class="logo-name">Plan de Dennis</div>
+      </div>
+      <div class="week-nav">
+        <button class="wnav-btn" id="prevWeek" aria-label="Semana anterior">‹</button>
+        <span class="wlabel" id="weekLabel">Semana 1</span>
+        <button class="wnav-btn" id="nextWeek" aria-label="Semana siguiente">›</button>
+      </div>
+      <div class="hdr-actions">
+        <button class="btn btn-ghost" id="toggleDiet">🥗 Dieta</button>
+        <button class="btn btn-ghost" id="toggleShop">🛒 Compra</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="daynav-wrap" id="dayNav">
+    <div class="daynav" id="dayPills"></div>
+  </nav>
+
+  <main class="main">
+    <div id="dietView">
+      <div class="day-hdr">
+        <div class="day-hdr-left">
+          <h1 class="day-title" id="dayTitle">Lunes</h1>
+          <span class="exc-chip" id="excChip"></span>
+        </div>
+        <span class="kcal-chip" id="kcalChip"></span>
+      </div>
+      <div id="dayProgress" hidden class="day-progress"></div>
+      <div class="meal-grid" id="mealGrid"></div>
+    </div>
+
+    <div id="shopView" hidden>
+      <div class="shopping-hdr">
+        <div class="shop-title" id="shopTitle">Lista de la compra</div>
+        <div class="shop-sub" id="shopSub"></div>
+      </div>
+      <div class="shop-grid" id="shopGrid"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal-ov" id="modalOv" role="dialog" aria-modal="true" aria-label="Receta">
+  <div class="modal" id="modalBox">
+    <div class="modal-handle"></div>
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════
+const MEAL_TYPES = {
+  desayuno: "Desayuno",
+  comida: "Comida",
+  merienda: "Merienda",
+  cena: "Cena"
+};
+
+const W1 = {
+  id: 1, label: "Semana 1",
+  shopping: {
+    trip1: {
+      label: "Compra del Lunes",
+      desc: "Frescos para Lun–Mié · Despensa · Lácteos",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas (Lun–Mié)", items:[
+          { name:"Lubina entera limpia", qty:"2 piezas (~350 g c/u)", sub:"Dorada o besugo · comprarla el mismo lunes, se cocina esa noche" },
+          { name:"Lomo de atún fresco", qty:"350 g", sub:"Bonito o pez espada · aguanta 2 días en nevera (martes cena)" },
+          { name:"Pechuga de pollo", qty:"300 g", sub:"Muslos deshuesados · para martes comida" },
+          { name:"Muslos de pollo (con hueso)", qty:"500 g", sub:"Contramuslos · para miércoles cena (pepitoria)" },
+          { name:"Huevos L", qty:"12 unidades", sub:"—" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras (Lun–Mié + conservan)", items:[
+          { name:"Aguacate", qty:"2 medianos", sub:"Comprar que estén duros, madurarán en 2 días" },
+          { name:"Pimientos rojos", qty:"2 unidades", sub:"Para la ensalada de garbanzos del lunes" },
+          { name:"Espinacas baby", qty:"150 g", sub:"Rúcula · aguantan toda la semana en nevera" },
+          { name:"Cebolla morada", qty:"2 unidades", sub:"Cebolla dulce" },
+          { name:"Pepino", qty:"1 unidad", sub:"Para el tataki del martes" },
+          { name:"Zanahoria", qty:"6 unidades", sub:"Apio" },
+          { name:"Ajo", qty:"2 cabezas", sub:"Pasta de ajo" },
+          { name:"Cebolla amarilla", qty:"3 unidades", sub:"Cebolleta" },
+          { name:"Cilantro y perejil frescos", qty:"1 manojo c/u", sub:"Congelar si sobra" },
+          { name:"Limones", qty:"3 unidades", sub:"Lima · para el resto comprar el jueves" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas (semana entera)", items:[
+          { name:"Plátano", qty:"4 unidades", sub:"Mango o manzana" },
+          { name:"Arándanos frescos", qty:"150 g", sub:"Frutos rojos congelados" },
+          { name:"Manzana golden", qty:"3 unidades", sub:"Pera conferencia · aguanta toda la semana" },
+        ]},
+        cereales: { icon:"🌾", name:"Cereales y Legumbres", items:[
+          { name:"Pan de centeno integral", qty:"1 barra (400 g)", sub:"Pan de espelta" },
+          { name:"Copos de avena", qty:"500 g", sub:"Muesli sin azúcar" },
+          { name:"Quinoa", qty:"200 g", sub:"Cuscús integral" },
+          { name:"Pasta integral (penne)", qty:"200 g", sub:"Pasta de lentejas" },
+          { name:"Arroz basmati", qty:"200 g", sub:"Arroz jazmín · para el pollo en pepitoria" },
+          { name:"Arroz negro", qty:"250 g", sub:"Arroz bomba · para el sábado" },
+          { name:"Tortillas integrales de trigo", qty:"4 unidades", sub:"Tortillas de maíz" },
+          { name:"Garbanzos cocidos (bote)", qty:"2 botes (400 g)", sub:"Garbanzos secos cocidos en casa" },
+          { name:"Lentejas rojas", qty:"150 g", sub:"Lentejas pardinas · para el sábado comida" },
+        ]},
+        lacteos: { icon:"🧀", name:"Lácteos (toda la semana)", items:[
+          { name:"Yogur griego natural (0%)", qty:"4 unidades (125 g)", sub:"Skyr o fromage frais" },
+          { name:"Kéfir natural sin azúcar", qty:"1 botella (750 ml)", sub:"Yogur líquido natural" },
+          { name:"Queso manchego curado", qty:"80 g", sub:"Parmesano o pecorino" },
+          { name:"Queso de cabra rulo", qty:"80 g", sub:"Feta griego" },
+          { name:"Mantequilla sin sal", qty:"50 g", sub:"Aceite de coco" },
+        ]},
+        despensa: { icon:"🫙", name:"Despensa y Frutos Secos", items:[
+          { name:"Aceite de oliva virgen extra", qty:"500 ml", sub:"—" },
+          { name:"Atún en aceite de oliva (lata)", qty:"4 latas (80 g)", sub:"Caballa o sardinas" },
+          { name:"Leche de coco", qty:"1 lata (400 ml)", sub:"Nata de avena · sábado comida" },
+          { name:"Tomate triturado (lata)", qty:"1 lata (400 g)", sub:"Tomate entero pelado" },
+          { name:"Alcaparras en salmuera", qty:"1 tarro pequeño", sub:"Aceitunas verdes sin hueso" },
+          { name:"Aceitunas negras sin hueso", qty:"100 g", sub:"Aceitunas kalamata" },
+          { name:"Tinta de calamar (sobres)", qty:"2 sobres", sub:"Arroz negro en bolsa" },
+          { name:"Caldo de verduras (brick)", qty:"1 litro", sub:"Pastilla de caldo" },
+          { name:"Vino blanco seco", qty:"250 ml", sub:"Caldo de verduras" },
+          { name:"Salsa de soja baja en sal", qty:"pequeño bote", sub:"Tamari sin gluten" },
+          { name:"Vinagre de manzana + Vinagre de Jerez", qty:"—", sub:"Vinagre de arroz o Módena" },
+          { name:"Aceite de sésamo", qty:"—", sub:"Omitir o aceite de cacahuete" },
+          { name:"Aceite de trufa negra", qty:"1 botella pequeña", sub:"Omitir · solo unas gotas (domingo)" },
+          { name:"Tahini (pasta de sésamo)", qty:"1 tarro pequeño", sub:"Mantequilla de cacahuete natural" },
+          { name:"Piñones", qty:"30 g", sub:"Pipas de calabaza" },
+          { name:"Azafrán (o colorante)", qty:"1 sobrecito", sub:"Cúrcuma + paprika" },
+          { name:"Curry en polvo, comino, pimentón ahumado", qty:"—", sub:"Especias sueltas" },
+          { name:"Almendras crudas", qty:"150 g", sub:"Anacardos" },
+          { name:"Nueces", qty:"100 g", sub:"Pecanas" },
+          { name:"Mantequilla de almendras", qty:"1 tarro (250 g)", sub:"Mantequilla de cacahuete natural" },
+          { name:"Frutos secos mixtos (sin sal)", qty:"100 g", sub:"—" },
+          { name:"Semillas de sésamo blanco", qty:"50 g", sub:"Semillas de amapola" },
+          { name:"Semillas de chía", qty:"50 g", sub:"Semillas de lino molido" },
+          { name:"Semillas mixtas (pipas, lino)", qty:"50 g", sub:"Pipas de girasol sin sal" },
+        ]},
+      }
+    },
+    trip2: {
+      label: "Reposición del Jueves",
+      desc: "Pescado y carne fresca para Jue–Dom",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas frescas (Jue–Dom)", items:[
+          { name:"Bacalao desalado (lomo)", qty:"300 g", sub:"Merluza o rape · jueves cena, comprar ese día" },
+          { name:"Magret de pato", qty:"1 pieza (~350 g)", sub:"Contramuslos de pato · viernes cena" },
+          { name:"Salmón ahumado", qty:"100 g", sub:"Trucha ahumada · sábado desayuno" },
+          { name:"Sepia limpia", qty:"400 g", sub:"Chipirón o calamar · sábado cena" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras frescas (Jue–Dom)", items:[
+          { name:"Tomates cherry", qty:"250 g", sub:"Tomates pera · jueves cena" },
+          { name:"Tomates maduros", qty:"2 unidades", sub:"Para el gazpacho del jueves comida" },
+          { name:"Pimiento verde", qty:"½ unidad", sub:"Para el gazpacho" },
+          { name:"Pepino extra", qty:"1 unidad", sub:"Gazpacho del jueves" },
+          { name:"Boniato", qty:"2 medianos", sub:"Patata nueva · viernes cena" },
+          { name:"Calabaza troceada", qty:"400 g", sub:"Zanahoria · domingo cena" },
+          { name:"Patatas", qty:"6 medianas", sub:"Boniato · domingo comida" },
+          { name:"Calabacín", qty:"1 mediano", sub:"Berenjena · para el pisto del bacalao (jueves)" },
+          { name:"Limones extra", qty:"2 unidades", sub:"Lima" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas frescas (Jue–Dom)", items:[
+          { name:"Naranja", qty:"3 unidades", sub:"Mandarina · viernes cena (reducción pato) + merienda" },
+          { name:"Fruta de temporada", qty:"4 piezas", sub:"Lo que haya en el mercado · domingo merienda" },
+        ]},
+      }
+    }
+  },
+  days: [
+    {
+      name:"Lunes",short:"Lun",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1960,
+      meals:{
+        desayuno:{name:"Tostadas de centeno con aguacate y huevo pochado",kcal:390,protein:20,carbs:38,fat:16,time:"12 min",ahead:false,
+          ing:[{q:"2 rebanadas",i:"pan de centeno integral"},{q:"½ mediano",i:"aguacate"},{q:"2",i:"huevos frescos"},{q:"1 cdta",i:"vinagre de manzana"},{q:"½",i:"limón (zumo)"},{q:"1 cdta",i:"semillas de sésamo tostado"},{q:"al gusto",i:"sal y pimienta negra"}],
+          steps:["Tostar el pan. Aplastar el aguacate con limón, sal y pimienta negra.","Llevar agua con un chorrito de vinagre a ebullición suave. Crear un remolino y cascar el huevo en el centro. Cocer 3 minutos hasta que la clara esté cuajada y la yema líquida.","Montar: aguacate sobre las tostadas, huevo encima y terminar con el sésamo."]},
+        comida:{name:"Ensalada de garbanzos con pimiento asado y comino",kcal:450,protein:22,carbs:54,fat:15,time:"45 min (prep noche anterior)",ahead:true,
+          ing:[{q:"200 g",i:"garbanzos cocidos (bote)"},{q:"2 grandes",i:"pimientos rojos"},{q:"¼",i:"cebolla morada"},{q:"1 manojo",i:"cilantro fresco"},{q:"1 cdta",i:"comino molido"},{q:"2 cdas",i:"aceite de oliva virgen extra"},{q:"½",i:"limón (zumo)"}],
+          steps:["Hornear los pimientos enteros a 200 °C durante 35 min. Meter en bolsa, cerrar y dejar enfriar 10 min para pelarlos fácilmente.","Cortar en tiras, picar la cebolla fina y el cilantro. Escurrir y enjuagar los garbanzos.","Mezclar todo, aliñar con aceite, limón y comino. Guardar en tupper en la nevera."]},
+        merienda:{name:"Plátano con mantequilla de almendras",kcal:235,protein:6,carbs:34,fat:10,time:"2 min",ahead:false,
+          ing:[{q:"1",i:"plátano mediano"},{q:"2 cdas",i:"mantequilla de almendras (sin azúcar)"}],
+          steps:["Cortar el plátano en rodajas y comer con la mantequilla de almendras."]},
+        cena:{name:"Lubina al horno con vinagreta caliente de alcaparras y tomates cherry",kcal:490,protein:44,carbs:6,fat:28,time:"35 min",ahead:false,
+          ing:[{q:"2 piezas",i:"lubina entera limpia (~350 g c/u)"},{q:"250 g",i:"tomates cherry"},{q:"2 cdas",i:"alcaparras en salmuera (escurridas)"},{q:"3 dientes",i:"ajo laminado"},{q:"½",i:"limón en rodajas"},{q:"1 manojo",i:"perejil fresco"},{q:"3 cdas",i:"aceite de oliva virgen extra"}],
+          steps:["Precalentar a 200 °C. Hacer 3 cortes diagonales en cada lubina. Frotar con 2 cdas de aceite, ajo laminado, sal y pimienta. Introducir rodajas de limón en el interior.","Colocar en bandeja con los tomates cherry. Hornear 22–25 min hasta que la piel chisporrotee y se abra.","En los últimos 3 min, calentar la cda de aceite restante en sartén pequeña, añadir alcaparras hasta que chisporroteen, luego el perejil picado. Regar las lubinas justo al sacar del horno."]}
+      }
+    },
+    {
+      name:"Martes",short:"Mar",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:2000,
+      meals:{
+        desayuno:{name:"Porridge de avena con canela, nueces y plátano",kcal:385,protein:13,carbs:58,fat:12,time:"8 min",ahead:false,
+          ing:[{q:"70 g",i:"copos de avena"},{q:"250 ml",i:"leche semidesnatada o vegetal"},{q:"1",i:"plátano (mitad en rodajas)"},{q:"25 g",i:"nueces"},{q:"1 cdta",i:"canela molida"},{q:"1 cdta",i:"miel (opcional)"}],
+          steps:["Cocer la avena con la leche a fuego medio-bajo 5 min, removiendo para que no se pegue. Añadir la canela al final.","Servir con el plátano en rodajas, las nueces troceadas y la miel."]},
+        comida:{name:"Wrap integral de pollo con guacamole",kcal:470,protein:38,carbs:42,fat:16,time:"20 min (prep noche anterior)",ahead:true,
+          ing:[{q:"150 g",i:"pechuga de pollo"},{q:"2",i:"tortillas integrales de trigo"},{q:"½",i:"aguacate"},{q:"¼",i:"cebolla morada"},{q:"½",i:"limón (zumo)"},{q:"2 hojas",i:"lechuga romana"},{q:"al gusto",i:"sal, comino, pimentón ahumado"}],
+          steps:["Sazonar el pollo con sal, comino y pimentón. Cocinar a la plancha 5 min por cada lado. Reposar 5 min y filetear fino.","Aplastar el aguacate con limón y sal.","Calentar la tortilla. Montar: guacamole, pollo, lechuga y cebolla morada. Enrollar firmemente y envolver en film para el día siguiente."]},
+        merienda:{name:"Manzana con queso manchego",kcal:195,protein:7,carbs:22,fat:8,time:"2 min",ahead:false,
+          ing:[{q:"1",i:"manzana golden"},{q:"40 g",i:"queso manchego curado"}],
+          steps:["Cortar la manzana en gajos y acompañar con el manchego en lonchas finas."]},
+        cena:{name:"Tataki de atún con salsa ponzu casera y ensalada de pepino y sésamo",kcal:510,protein:46,carbs:12,fat:26,time:"20 min",ahead:false,
+          ing:[{q:"300 g",i:"lomo de atún fresco (bloque)"},{q:"1",i:"pepino"},{q:"2 cdas",i:"salsa de soja baja en sal"},{q:"1 cda",i:"zumo de limón"},{q:"1 cdta",i:"aceite de sésamo"},{q:"1 cdta",i:"jengibre fresco rallado"},{q:"1 cda",i:"semillas de sésamo"}],
+          steps:["Marcar el bloque de atún en sartén muy caliente con un hilo de aceite neutro, 30 segundos por cada cara. El interior debe quedar crudo y rojo. Envolver en film y refrigerar 10 min.","Mezclar la soja, limón, aceite de sésamo y jengibre para la salsa ponzu.","Cortar el atún en lonchas de 1 cm y el pepino en medias lunas. Disponer en plato, salsear y terminar con el sésamo."]}
+      }
+    },
+    {
+      name:"Miércoles",short:"Mié",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1850,
+      meals:{
+        desayuno:{name:"Yogur griego con arándanos, chía y nueces",kcal:320,protein:17,carbs:29,fat:14,time:"5 min",ahead:false,
+          ing:[{q:"200 g",i:"yogur griego natural (0%)"},{q:"100 g",i:"arándanos frescos"},{q:"1 cda",i:"semillas de chía"},{q:"20 g",i:"nueces troceadas"},{q:"1 cdta",i:"miel (opcional)"}],
+          steps:["Poner el yogur en un bol amplio.","Añadir los arándanos, la chía, las nueces y la miel. Si dejas reposar 10 minutos la chía se hidrata y la textura mejora."]},
+        comida:{name:"Ensalada de quinoa con tofu marinado y edamame",kcal:440,protein:23,carbs:50,fat:14,time:"25 min + 30 min marinado (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"quinoa cocida (~60 g en seco)"},{q:"120 g",i:"tofu firme"},{q:"100 g",i:"edamame descongelado"},{q:"½",i:"aguacate"},{q:"2 cdas",i:"salsa de soja baja en sal"},{q:"1 cdta",i:"aceite de sésamo"},{q:"½",i:"limón (zumo)"}],
+          steps:["Cortar el tofu en dados y marinar con soja, aceite de sésamo y limón durante 30 min. Dorar en sartén antiadherente a fuego alto 3 min por lado hasta que esté dorado.","Cocer la quinoa según el paquete. Enfriar bajo el grifo y escurrir.","Montar: quinoa, tofu dorado, edamame y aguacate. Aliñar con el marinado sobrante."]},
+        merienda:{name:"Bastones de zanahoria con hummus casero",kcal:185,protein:7,carbs:22,fat:8,time:"10 min",ahead:true,
+          ing:[{q:"3",i:"zanahorias en bastones"},{q:"100 g",i:"garbanzos cocidos"},{q:"1 cda",i:"tahini"},{q:"½",i:"limón (zumo)"},{q:"1 diente",i:"ajo"},{q:"1 cda",i:"aceite de oliva"}],
+          steps:["Triturar los garbanzos con el tahini, limón, ajo, aceite y un chorrito de agua hasta obtener una crema suave. Ajustar de sal.","Servir con los bastones de zanahoria. El hummus aguanta 3 días en la nevera."]},
+        cena:{name:"Pollo en pepitoria con almendras y arroz basmati",kcal:580,protein:48,carbs:40,fat:22,time:"55 min",ahead:false,
+          ing:[{q:"2",i:"muslos de pollo con piel y hueso (~500 g total)"},{q:"100 g",i:"arroz basmati"},{q:"2",i:"yemas de huevo duro"},{q:"30 g",i:"almendras tostadas"},{q:"½ vaso",i:"vino blanco seco"},{q:"1",i:"cebolla mediana picada"},{q:"1 cdta",i:"azafrán (o colorante) en caldo"}],
+          steps:["Dorar los muslos en cazuela con aceite hasta que estén bien tostados. Retirar. En la misma cazuela, pochar la cebolla a fuego suave 10 min.","Añadir el vino, dejar evaporar 2 min. Volver a meter el pollo, cubrir con agua/caldo y el azafrán. Cocer tapado a fuego bajo 35 min.","Majar en mortero las yemas de huevo duro con las almendras tostadas. Incorporar a la cazuela y cocer 5 min más: la salsa espesará y adquirirá sabor profundo.","Cocer el arroz por separado. Servir con abundante salsa de pepitoria y almendras enteras por encima."]}
+      }
+    },
+    {
+      name:"Jueves",short:"Jue",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1970,
+      meals:{
+        desayuno:{name:"Tortilla de claras con espinacas y queso de cabra",kcal:340,protein:30,carbs:6,fat:18,time:"10 min",ahead:false,
+          ing:[{q:"4",i:"claras de huevo"},{q:"1",i:"huevo entero"},{q:"80 g",i:"espinacas baby"},{q:"30 g",i:"queso de cabra rulo"},{q:"1 diente",i:"ajo laminado"},{q:"al gusto",i:"sal, pimienta, nuez moscada"}],
+          steps:["Saltear las espinacas con el ajo en sartén antiadherente 2 min hasta que se reduzcan. Retirar y reservar.","Batir las claras con el huevo entero, sal, pimienta y una pizca de nuez moscada. Verter en la sartén engrasada a fuego medio-bajo.","Cuando cuaje la base, repartir las espinacas y el queso de cabra desmenuzado. Plegar en forma de tortilla y servir."]},
+        comida:{name:"Gazpacho andaluz con tropezones de melón y jamón",kcal:345,protein:15,carbs:28,fat:14,time:"15 min + 2h reposo (prep día anterior)",ahead:true,
+          ing:[{q:"500 g",i:"tomates maduros"},{q:"½",i:"pepino"},{q:"¼",i:"pimiento verde"},{q:"1 diente",i:"ajo"},{q:"2 cdas",i:"aceite de oliva virgen extra"},{q:"1 cda",i:"vinagre de Jerez"},{q:"50 g",i:"melón en daditos"},{q:"2 lonchas",i:"jamón serrano"}],
+          steps:["Triturar los tomates, pepino, pimiento y ajo con el aceite y el vinagre. Colar para eliminar pieles y pepitas.","Ajustar de sal y refrigerar mínimo 2 horas. Servir muy frío en cuenco con los dados de melón y el jamón."]},
+        merienda:{name:"Kéfir con nueces y semillas de chía",kcal:210,protein:9,carbs:12,fat:13,time:"2 min",ahead:false,
+          ing:[{q:"200 ml",i:"kéfir natural sin azúcar"},{q:"25 g",i:"nueces troceadas"},{q:"1 cdta",i:"semillas de chía"}],
+          steps:["Verter el kéfir, añadir las nueces y la chía. Dejar reposar 5 min para que la chía se hidrate."]},
+        cena:{name:"Bacalao confitado con pisto manchego y piñones dorados",kcal:555,protein:46,carbs:18,fat:30,time:"50 min",ahead:false,
+          ing:[{q:"300 g",i:"lomo de bacalao desalado"},{q:"2",i:"tomates maduros"},{q:"1",i:"calabacín mediano"},{q:"1",i:"pimiento rojo"},{q:"1",i:"pimiento verde"},{q:"20 g",i:"piñones"},{q:"200 ml",i:"aceite de oliva virgen extra (para confitar)"}],
+          steps:["Cortar todas las verduras en daditos de 1 cm. Sofreirlas en aceite a fuego suave durante 25 min, removiendo de vez en cuando. Los últimos 5 min, añadir los piñones y subir el fuego para que se doren.","Calentar el aceite de oliva en un cazo pequeño hasta 65–70 °C (sin que humee nunca). Sumergir el bacalao y confitar 15 min. A esta temperatura baja el bacalao queda jugoso y se desmiga en lascas perfectas.","Servir el bacalao lascado sobre el pisto caliente, napando con un hilo del aceite aromático del confitado."]}
+      }
+    },
+    {
+      name:"Viernes",short:"Vie",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1980,
+      meals:{
+        desayuno:{name:"Batido verde de avena, plátano y mantequilla de almendras",kcal:355,protein:13,carbs:48,fat:13,time:"5 min",ahead:false,
+          ing:[{q:"1 puñado",i:"espinacas baby"},{q:"1",i:"plátano congelado"},{q:"40 g",i:"copos de avena"},{q:"250 ml",i:"leche de almendras sin azúcar"},{q:"1 cda",i:"mantequilla de almendras"},{q:"1 cdta",i:"semillas de chía"},{q:"cubitos",i:"hielo"}],
+          steps:["Meter todos los ingredientes en la batidora de vaso.","Triturar a máxima potencia hasta que quede completamente homogéneo. La avena aporta saciedad y la mantequilla de almendras proteína y textura cremosa. Servir inmediatamente."]},
+        comida:{name:"Pasta integral con atún, aceitunas y alcaparras al estilo mediterráneo",kcal:465,protein:31,carbs:58,fat:14,time:"20 min (prep día anterior)",ahead:true,
+          ing:[{q:"100 g",i:"pasta integral (penne o fusilli)"},{q:"2 latas",i:"atún en aceite de oliva (80 g c/u)"},{q:"50 g",i:"aceitunas negras sin hueso"},{q:"1 cda",i:"alcaparras"},{q:"200 g",i:"tomates cherry"},{q:"2 dientes",i:"ajo"},{q:"al gusto",i:"orégano, albahaca fresca, aceite de oliva"}],
+          steps:["Cocer la pasta al dente. Guardar un vaso del agua de cocción.","Saltear el ajo picado, añadir los tomates cherry partidos y cocinar 5 min hasta que rompan. Añadir el atún escurrido, aceitunas y alcaparras. 2 min más.","Mezclar con la pasta. Añadir un chorrito del agua de cocción para que ligue. Terminar con hierbas. Refrigerar en tupper: está aún mejor frío."]},
+        merienda:{name:"Frutos secos mixtos y naranja",kcal:220,protein:5,carbs:20,fat:12,time:"1 min",ahead:false,
+          ing:[{q:"30 g",i:"frutos secos mixtos (sin sal)"},{q:"1",i:"naranja"}],
+          steps:["Pelar y seccionar la naranja. Acompañar con los frutos secos."]},
+        cena:{name:"Magret de pato con reducción de naranja y jengibre sobre boniato asado",kcal:590,protein:38,carbs:34,fat:28,time:"50 min",ahead:false,
+          ing:[{q:"1 pieza",i:"magret de pato (~350 g)"},{q:"2",i:"boniatos medianos"},{q:"2",i:"naranjas (zumo y ralladura)"},{q:"1 cda",i:"jengibre fresco rallado"},{q:"1 cda",i:"miel"},{q:"1 cda",i:"vinagre de Módena"},{q:"al gusto",i:"sal, pimienta, tomillo fresco"}],
+          steps:["Hornear los boniatos enteros a 200 °C durante 35–40 min. Abrir por la mitad y sazonar con sal, aceite y tomillo.","Cuadricular la piel del magret con un cuchillo (sin llegar a la carne). Colocarlo con la piel hacia abajo en sartén fría sin aceite a fuego medio-bajo durante 8–9 min, dejando que la grasa funda lentamente. Girar y 3 min más por el lado de la carne. Reposar 5 min envuelto en papel de aluminio.","En la sartén con 1 cda de la grasa del pato, añadir el zumo de naranja, su ralladura, jengibre, miel y vinagre. Reducir a fuego alto 4 min hasta obtener una salsa brillante.","Filetear el magret en diagonal. Servir con el boniato y napar con la reducción."]}
+      }
+    },
+    {
+      name:"Sábado",short:"Sáb",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Huevos revueltos con salmón ahumado y eneldo",kcal:400,protein:32,carbs:4,fat:26,time:"8 min",ahead:false,
+          ing:[{q:"3",i:"huevos frescos"},{q:"75 g",i:"salmón ahumado"},{q:"1 cda",i:"mantequilla"},{q:"al gusto",i:"eneldo fresco o seco"},{q:"1 rebanada",i:"pan de centeno"}],
+          steps:["Batir los huevos con sal y pimienta. Derretir la mantequilla en sartén a fuego muy bajo.","Añadir los huevos y remover lentamente con espátula de silicona. Justo antes de que cuajen del todo, retirar del fuego: el calor residual los termina. Quedan cremosos, no secos.","Servir sobre la tostada de centeno con el salmón ahumado por encima y eneldo fresco."]},
+        comida:{name:"Lentejas rojas con leche de coco y curry suave",kcal:420,protein:22,carbs:56,fat:12,time:"25 min (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"lentejas rojas (sin remojar)"},{q:"200 ml",i:"leche de coco"},{q:"1 lata",i:"tomate triturado (400 g)"},{q:"1 cdta",i:"curry en polvo suave"},{q:"1 cdta",i:"comino molido"},{q:"1",i:"cebolla mediana"},{q:"2 dientes",i:"ajo"}],
+          steps:["Pochar la cebolla y el ajo picados en aceite 8 min a fuego medio. Añadir el curry y el comino, tostar 1 min removiendo.","Incorporar el tomate triturado, las lentejas y la leche de coco. Cocer a fuego suave 20 min sin tapar hasta que las lentejas estén muy blandas. Las lentejas rojas no necesitan remojo previo.","Ajustar de sal. Un chorrito de limón al servir lo levanta todo."]},
+        merienda:{name:"Onza de chocolate negro con tisana de jengibre",kcal:130,protein:1,carbs:14,fat:7,time:"3 min",ahead:false,
+          ing:[{q:"20 g",i:"chocolate negro 85% cacao"},{q:"1 trozo",i:"jengibre fresco (o bolsita de infusión)"},{q:"al gusto",i:"agua caliente"}],
+          steps:["Preparar la infusión de jengibre. Disfrutar con la onza de chocolate negro."]},
+        cena:{name:"Sepia a la plancha con sofrito de pimientos y arroz negro",kcal:560,protein:40,carbs:48,fat:16,time:"40 min",ahead:false,
+          ing:[{q:"400 g",i:"sepia limpia"},{q:"200 g",i:"arroz negro"},{q:"2",i:"pimientos (1 rojo y 1 verde)"},{q:"2 dientes",i:"ajo"},{q:"2 sobres",i:"tinta de calamar"},{q:"500 ml",i:"caldo de pescado caliente"},{q:"3 cdas",i:"alioli suave (para servir)"}],
+          steps:["Sofrír el ajo y los pimientos en daditos en aceite 12 min a fuego suave. Añadir el arroz y nacarar 2 min removiendo. Disolver la tinta en el caldo caliente e incorporar al arroz.","Cocer a fuego medio-bajo 18–20 min sin tapar, hasta que el arroz absorba todo el caldo. Reposar 3 min tapado.","Marcar la sepia en plancha muy caliente con sal y un hilo de aceite, 2–3 min por lado. No mover en exceso: que se tueste bien.","Servir la sepia sobre el arroz negro con el alioli a un lado."]}
+      }
+    },
+    {
+      name:"Domingo",short:"Dom",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1870,
+      meals:{
+        desayuno:{name:"Tortitas de avena con arándanos y sirope de agave",kcal:385,protein:14,carbs:58,fat:10,time:"20 min",ahead:false,
+          ing:[{q:"100 g",i:"copos de avena (triturados = harina de avena)"},{q:"2",i:"huevos"},{q:"100 ml",i:"leche semidesnatada"},{q:"1 cdta",i:"levadura en polvo"},{q:"100 g",i:"arándanos frescos"},{q:"1 cda",i:"sirope de agave o miel"}],
+          steps:["Triturar los copos de avena hasta obtener harina. Mezclar con los huevos, la leche y la levadura. La masa debe quedar espesa.","Calentar sartén antiadherente con spray de aceite. Verter cucharones de masa (no muy gruesos). Añadir algunos arándanos encima. Cocinar 2 min hasta que salgan burbujas, girar y 1 min más.","Servir con el sirope y los arándanos restantes."]},
+        comida:{name:"Pollo asado al romero con patatas panaderas",kcal:580,protein:48,carbs:38,fat:22,time:"70 min",ahead:false,
+          ing:[{q:"600 g",i:"contramuslos de pollo con piel"},{q:"6",i:"patatas medianas en rodajas finas"},{q:"2",i:"cebollas en juliana"},{q:"4 dientes",i:"ajo con piel"},{q:"3 ramas",i:"romero fresco"},{q:"3 cdas",i:"aceite de oliva"},{q:"100 ml",i:"vino blanco seco"}],
+          steps:["Extender las patatas en rodajas en una bandeja de horno con la cebolla, ajo, aceite y vino. Sazonar generosamente con sal y pimienta.","Colocar el pollo encima con la piel hacia arriba. Frotar con aceite, sal y romero fresco. Hornear a 200 °C durante 55–60 min.","Los últimos 10 min, subir a 220 °C para que la piel quede bien crujiente y las patatas se doren. Reposar 5 min antes de servir."]},
+        merienda:{name:"Fruta de temporada",kcal:130,protein:1,carbs:30,fat:0,time:"1 min",ahead:false,
+          ing:[{q:"lo que haya",i:"fruta fresca de temporada (melocotón, pera, uvas, ciruelas…)"}],
+          steps:["Elegir la mejor fruta del mercado y disfrutarla tal cual."]},
+        cena:{name:"Crema de calabaza con semillas tostadas y aceite de trufa negra",kcal:365,protein:10,carbs:38,fat:18,time:"35 min",ahead:false,
+          ing:[{q:"500 g",i:"calabaza pelada y troceada"},{q:"1",i:"patata mediana (para ligar)"},{q:"1",i:"cebolla mediana"},{q:"600 ml",i:"caldo de verduras"},{q:"2 cdas",i:"aceite de oliva"},{q:"1 cda",i:"semillas mixtas (pipas, sésamo, lino)"},{q:"unas gotas",i:"aceite de trufa negra"}],
+          steps:["Sofrír la cebolla 8 min en aceite hasta que esté transparente. Añadir la calabaza y la patata troceadas. Cubrir con el caldo caliente y cocer 20 min hasta que estén muy tiernas.","Triturar con batidora de mano a máxima potencia durante 2 min hasta obtener una textura muy fina y sedosa. Si es necesario, colar. Ajustar de sal y consistencia añadiendo más caldo.","Tostar las semillas en sartén seca 2 min removiendo. Servir la crema caliente con las semillas y 3–4 gotas de aceite de trufa."]}
+      }
+    }
+  ]
+};
+
+const W2 = {
+  id: 2, label: "Semana 2",
+  shopping: {
+    trip1: {
+      label: "Compra del Lunes",
+      desc: "Frescos para Lun–Mié · Despensa · Lácteos",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas (Lun–Mié)", items:[
+          { name:"Dorada entera limpia", qty:"2 piezas (~350 g c/u)", sub:"Lubina o besugo · comprar ese lunes, se cocina esa noche" },
+          { name:"Lomo de atún fresco", qty:"200 g", sub:"Bonito o pez espada · martes comida, aguanta 2 días en nevera" },
+          { name:"Pechuga de pavo en filetes finos", qty:"400 g", sub:"Pechuga de pollo · martes cena rollitos" },
+          { name:"Carrilleras de cerdo ibérico", qty:"500 g", sub:"Carrilleras de ternera · miércoles cena" },
+          { name:"Huevos L", qty:"12 unidades", sub:"—" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras (Lun–Mié + conservan)", items:[
+          { name:"Champiñones", qty:"300 g", sub:"Setas variadas · lunes desayuno + martes cena" },
+          { name:"Espárragos verdes", qty:"1 manojo", sub:"Judías verdes finas · lunes cena" },
+          { name:"Judías verdes finas", qty:"200 g", sub:"Edamame · martes comida niçoise" },
+          { name:"Espinacas baby", qty:"150 g", sub:"Acelgas · martes cena rollitos" },
+          { name:"Tomates maduros", qty:"4 unidades", sub:"Tomate triturado (lata) · martes/miércoles" },
+          { name:"Pimiento rojo", qty:"2 unidades", sub:"Pimientos del piquillo · miércoles comida" },
+          { name:"Zanahoria", qty:"3 unidades", sub:"Chirivía · miércoles cena carrilleras" },
+          { name:"Cebolla amarilla", qty:"4 unidades", sub:"Cebolleta · toda la semana" },
+          { name:"Ajo (cabeza)", qty:"2 cabezas", sub:"Pasta de ajo · toda la semana" },
+          { name:"Judías blancas (bote)", qty:"1 bote (400 g)", sub:"Garbanzos cocidos · miércoles comida" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas (semana entera)", items:[
+          { name:"Pera de conferencia", qty:"3 unidades", sub:"Manzana golden · aguanta toda la semana" },
+          { name:"Uvas (blancas o negras)", qty:"200 g", sub:"Cerezas o higos de temporada · martes merienda" },
+          { name:"Limones", qty:"4 unidades", sub:"Lima · toda la semana" },
+          { name:"Plátano", qty:"3 unidades", sub:"Mango · desayunos varios" },
+        ]},
+        cereales: { icon:"🌾", name:"Cereales y Legumbres", items:[
+          { name:"Pan de espelta integral", qty:"1 barra (400 g)", sub:"Pan de centeno · martes desayuno, domingo french toast" },
+          { name:"Copos de avena", qty:"300 g", sub:"Muesli sin azúcar · jueves overnight oats" },
+          { name:"Arroz integral", qty:"200 g", sub:"Arroz basmati · jueves/viernes comida" },
+          { name:"Arroz arbóreo (risotto)", qty:"200 g", sub:"Arroz redondo normal · domingo comida" },
+          { name:"Tempeh", qty:"150 g", sub:"Tofu firme o seitán · jueves comida" },
+          { name:"Leche de almendras sin azúcar", qty:"1 litro", sub:"Leche de avena · overnight oats + smoothie bowl" },
+        ]},
+        lacteos: { icon:"🧀", name:"Lácteos (toda la semana)", items:[
+          { name:"Yogur natural sin azúcar", qty:"4 unidades (125 g)", sub:"Skyr · miércoles desayuno" },
+          { name:"Yogur griego natural", qty:"2 unidades", sub:"Skyr griego · viernes desayuno smoothie bowl" },
+          { name:"Kéfir natural", qty:"1 botella (500 ml)", sub:"Yogur líquido · jueves merienda" },
+          { name:"Parmesano en cuña", qty:"80 g", sub:"Grana padano · martes cena + domingo risotto" },
+          { name:"Queso feta griego", qty:"100 g", sub:"Queso de cabra fresco · martes merienda + miércoles comida" },
+          { name:"Mantequilla sin sal", qty:"50 g", sub:"AOVE · domingo risotto" },
+        ]},
+        despensa: { icon:"🫙", name:"Despensa y Frutos Secos", items:[
+          { name:"Aceite de oliva virgen extra", qty:"500 ml", sub:"—" },
+          { name:"Vino tinto robusto", qty:"500 ml", sub:"Caldo de carne oscuro · miércoles cena carrilleras" },
+          { name:"Caldo de pollo (brick)", qty:"1 litro", sub:"Pastilla de caldo suave" },
+          { name:"Caldo de verduras (brick)", qty:"1 litro", sub:"Pastilla de caldo" },
+          { name:"Caldo de pescado (brick)", qty:"500 ml", sub:"Fumet casero" },
+          { name:"Tomate triturado (lata)", qty:"1 lata", sub:"Tomate natural pelado · sábado shakshuka" },
+          { name:"Setas secas (boletus/porcini)", qty:"20 g", sub:"Mix de setas secas · domingo risotto" },
+          { name:"Pasta de miso blanco (shiro miso)", qty:"1 tarro pequeño", sub:"Miso oscuro (menos cantidad) · domingo cena" },
+          { name:"Mostaza de Dijon", qty:"1 tarro", sub:"Mostaza antigua en grano · lunes cena + martes niçoise" },
+          { name:"Aceitunas negras sin hueso", qty:"100 g", sub:"Aceitunas kalamata · martes niçoise" },
+          { name:"Alcaparras en salmuera", qty:"1 tarro", sub:"Aceitunas verdes · martes niçoise" },
+          { name:"Salsa de soja baja en sal", qty:"pequeño bote", sub:"Tamari sin gluten · jueves tempeh" },
+          { name:"Aceite de sésamo", qty:"—", sub:"Omitir o aceite de cacahuete · jueves tempeh + domingo sopa miso" },
+          { name:"Sal gruesa marina", qty:"1 kg", sub:"Sal en escamas · lunes dorada a la sal" },
+          { name:"Pimentón de la Vera (dulce y ahumado)", qty:"—", sub:"Pimentón normal" },
+          { name:"Azafrán", qty:"1 sobrecito", sub:"Colorante alimentario · viernes rape all i pebre" },
+          { name:"Hierbas (laurel, tomillo, orégano)", qty:"—", sub:"Hierbas de Provenza" },
+          { name:"Granola sin azúcar añadido", qty:"100 g", sub:"Muesli crujiente · viernes smoothie bowl" },
+          { name:"Almendras laminadas", qty:"80 g", sub:"Pistachos laminados · lunes merienda + jueves overnight oats" },
+          { name:"Avellanas tostadas", qty:"50 g", sub:"Almendras enteras · miércoles desayuno + sábado merienda" },
+          { name:"Nueces", qty:"50 g", sub:"Pecanas · viernes merienda" },
+          { name:"Semillas de sésamo negro", qty:"30 g", sub:"Sésamo blanco · miércoles desayuno + sábado crema" },
+          { name:"Semillas de calabaza (pipas)", qty:"50 g", sub:"Semillas de girasol sin sal · jueves merienda" },
+          { name:"Semillas de chía", qty:"30 g", sub:"Semillas de lino molido · jueves overnight oats + viernes smoothie" },
+          { name:"Pasas sultanas", qty:"30 g", sub:"Arándanos secos · viernes merienda" },
+        ]},
+      }
+    },
+    trip2: {
+      label: "Reposición del Jueves",
+      desc: "Pescado y carne fresca para Jue–Dom",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas frescas (Jue–Dom)", items:[
+          { name:"Merluza (lomos)", qty:"400 g", sub:"Bacalao fresco o rape · jueves cena, comprar ese día" },
+          { name:"Rape (sin cabeza)", qty:"500 g", sub:"Corvina o merluza · viernes cena all i pebre" },
+          { name:"Langostinos pelados", qty:"200 g", sub:"Gambas grandes o mejillones · sábado comida crema" },
+          { name:"Filetes de caballa frescos", qty:"400 g", sub:"Sardinas grandes o boquerones · sábado cena confitada" },
+          { name:"Almejas (en agua)", qty:"200 g", sub:"Berberechos o chirlas · jueves cena con merluza" },
+          { name:"Tofu firme (para la sopa)", qty:"120 g", sub:"Tofu sedoso · domingo cena sopa miso" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras frescas (Jue–Dom)", items:[
+          { name:"Brócoli", qty:"300 g", sub:"Coliflor · jueves comida tempeh" },
+          { name:"Pimiento rojo (extra)", qty:"1 unidad", sub:"Pimiento verde · jueves comida tempeh" },
+          { name:"Calabacín", qty:"3 medianos", sub:"Berenjena · sábado crema + viernes pisto" },
+          { name:"Berenjena", qty:"1 mediana", sub:"Calabacín · viernes comida pisto" },
+          { name:"Puerro", qty:"2 unidades", sub:"Cebolleta · sábado comida crema de calabacín" },
+          { name:"Tomates cherry", qty:"300 g", sub:"Tomates pera · sábado desayuno shakshuka + sábado cena caballa" },
+          { name:"Patata", qty:"4 medianas", sub:"Boniato · viernes cena rape all i pebre" },
+          { name:"Setas mixtas frescas (champiñón, shiitake)", qty:"300 g", sub:"Champiñones solos · domingo risotto" },
+          { name:"Alga wakame seca", qty:"10 g", sub:"Alga kombu · domingo cena sopa miso" },
+          { name:"Cebollino fresco", qty:"1 manojo", sub:"Cebolleta verde · domingo sopa miso" },
+          { name:"Albahaca fresca", qty:"1 manojo", sub:"Perejil · sábado cena caballa confitada" },
+          { name:"Limones extra", qty:"2 unidades", sub:"Lima" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas frescas (Jue–Dom)", items:[
+          { name:"Manzana golden", qty:"2 unidades", sub:"Pera · sábado merienda + jueves overnight oats" },
+          { name:"Frutos rojos congelados (fresa, frambuesa, arándano)", qty:"200 g", sub:"Fresas frescas · viernes desayuno smoothie bowl" },
+          { name:"Fruta de temporada", qty:"4 piezas", sub:"Lo que haya en el mercado · domingo merienda" },
+        ]},
+      }
+    }
+  },
+  days: [
+    {
+      name:"Lunes",short:"Lun",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1950,
+      meals:{
+        desayuno:{name:"Revuelto cremoso de champiñones y trufa con tostada de espelta",kcal:360,protein:22,carbs:22,fat:20,time:"12 min",ahead:false,
+          ing:[{q:"200 g",i:"champiñones laminados"},{q:"3",i:"huevos"},{q:"1 cda",i:"mantequilla"},{q:"1 diente",i:"ajo"},{q:"unas gotas",i:"aceite de trufa negra"},{q:"2 rebanadas",i:"pan de espelta integral"},{q:"al gusto",i:"sal, pimienta, perejil picado"}],
+          steps:["Saltear los champiñones con el ajo en mantequilla a fuego alto 5 min hasta que estén dorados y evaporada el agua. Salpimentar.","Bajar el fuego al mínimo, añadir los huevos batidos y remover suavemente hasta que cuajen de forma cremosa.","Servir sobre la tostada con unas gotas de aceite de trufa y perejil picado."]},
+        comida:{name:"Tabulé de bulgur con pollo a la menta y limón",kcal:430,protein:34,carbs:46,fat:12,time:"20 min + remojo (prep día anterior)",ahead:true,
+          ing:[{q:"80 g",i:"bulgur (o quinoa)"},{q:"150 g",i:"pechuga de pollo"},{q:"2",i:"tomates en daditos"},{q:"½",i:"pepino en daditos"},{q:"1 manojo",i:"perejil fresco"},{q:"1 manojo",i:"menta fresca"},{q:"2 cdas",i:"aceite de oliva"},{q:"1",i:"limón (zumo)"}],
+          steps:["Hidratar el bulgur con agua hirviendo tapado 15 min. Escurrir y enfriar.","Cocinar el pollo a la plancha sazonado con sal, pimentón y zumo de limón. Filetear fino.","Mezclar el bulgur con los vegetales, hierbas picadas muy finas, aceite y limón. Incorporar el pollo. Refrigerar para el día siguiente."]},
+        merienda:{name:"Pera con almendras laminadas tostadas",kcal:195,protein:4,carbs:26,fat:8,time:"3 min",ahead:false,
+          ing:[{q:"1",i:"pera de conferencia"},{q:"20 g",i:"almendras laminadas tostadas"}],
+          steps:["Cortar la pera en gajos. Acompañar con las almendras laminadas."]},
+        cena:{name:"Dorada a la sal con crema de mostaza antigua y espárragos",kcal:510,protein:44,carbs:8,fat:28,time:"40 min",ahead:false,
+          ing:[{q:"2",i:"doradas enteras limpias (~350 g c/u)"},{q:"1 kg",i:"sal gruesa marina"},{q:"1 manojo",i:"espárragos verdes"},{q:"2 cdas",i:"mostaza de Dijon"},{q:"3 cdas",i:"aceite de oliva virgen extra"},{q:"½",i:"limón"},{q:"al gusto",i:"tomillo fresco, pimienta"}],
+          steps:["Mezclar la sal gruesa con 2–3 cdas de agua para que se apelmace. En bandeja de horno, hacer una cama de sal, colocar las doradas y cubrirlas completamente con más sal. Hornear a 200 °C durante 30 min.","Romper la costra de sal con golpes secos. La piel sale con la costra, revelando la carne jugosísima.","Saltear los espárragos en plancha 3 min con aceite y sal. Mezclar la mostaza con aceite y limón para la crema. Servir con la dorada y la salsa."]}
+      }
+    },
+    {
+      name:"Martes",short:"Mar",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Tostadas de espelta con tomate rallado, aceite y jamón",kcal:370,protein:18,carbs:36,fat:14,time:"5 min",ahead:false,
+          ing:[{q:"2 rebanadas",i:"pan de espelta integral"},{q:"1",i:"tomate maduro (rallado)"},{q:"2 lonchas",i:"jamón cocido de calidad"},{q:"1 cda",i:"aceite de oliva virgen extra"},{q:"al gusto",i:"sal en escamas"}],
+          steps:["Tostar el pan. Rallar el tomate directamente sobre las tostadas.","Cubrir con un hilo generoso de aceite, sal en escamas y las lonchas de jamón."]},
+        comida:{name:"Ensalada niçoise renovada con atún fresco",kcal:450,protein:36,carbs:30,fat:18,time:"25 min (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"lomo de atún fresco"},{q:"200 g",i:"judías verdes finas"},{q:"4",i:"tomates cherry partidos"},{q:"2",i:"huevos duros"},{q:"50 g",i:"aceitunas negras"},{q:"1 cda",i:"alcaparras"},{q:"2 cdas",i:"vinagreta de mostaza (aceite + limón + mostaza)"}],
+          steps:["Cocer las judías en agua con sal 4 min hasta que estén al dente. Enfriar en agua con hielo.","Marcar el atún 30 seg por cada cara a fuego muy alto. El centro queda crudo.","Montar la ensalada y aliñar con la vinagreta de mostaza."]},
+        merienda:{name:"Queso feta con uvas y avellanas",kcal:210,protein:8,carbs:18,fat:12,time:"2 min",ahead:false,
+          ing:[{q:"50 g",i:"queso feta griego"},{q:"1 puñado",i:"uvas (blancas o negras)"},{q:"15 g",i:"avellanas tostadas"}],
+          steps:["Servir el feta con las uvas y las avellanas. Una llovizna de miel lo convierte en postre."]},
+        cena:{name:"Rollitos de pavo rellenos de setas y espinacas, gratinados",kcal:560,protein:48,carbs:14,fat:28,time:"45 min",ahead:false,
+          ing:[{q:"400 g",i:"pechuga de pavo en filetes finos"},{q:"200 g",i:"champiñones picados"},{q:"80 g",i:"espinacas"},{q:"40 g",i:"queso parmesano rallado"},{q:"1",i:"cebolla"},{q:"2 dientes",i:"ajo"},{q:"200 ml",i:"caldo de pollo"},{q:"al gusto",i:"sal, tomillo, pimienta"}],
+          steps:["Saltear la cebolla y el ajo, añadir los champiñones y cocinar 8 min. Incorporar las espinacas hasta que se reduzcan. Ajustar de sal.","Extender el relleno sobre los filetes de pavo y enrollar. Sujetar con palillos o hilo de cocina.","Dorar los rollitos en sartén con aceite 2 min por cada lado. Trasladar a bandeja de horno, añadir el caldo y cocinar a 180 °C durante 20 min. Los últimos 5 min, cubrir con el parmesano y gratinar."]}
+      }
+    },
+    {
+      name:"Miércoles",short:"Mié",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1850,
+      meals:{
+        desayuno:{name:"Yogur con fresas, avellanas y semillas de sésamo negro",kcal:310,protein:15,carbs:28,fat:13,time:"5 min",ahead:false,
+          ing:[{q:"200 g",i:"yogur natural sin azúcar"},{q:"100 g",i:"fresas"},{q:"20 g",i:"avellanas tostadas"},{q:"1 cdta",i:"semillas de sésamo negro"},{q:"1 cdta",i:"miel o sirope de agave"}],
+          steps:["Cortar las fresas. Poner el yogur, añadir las fresas, las avellanas troceadas, el sésamo y la miel."]},
+        comida:{name:"Bowl mediterráneo con judías blancas, pimientos asados y feta",kcal:410,protein:20,carbs:48,fat:14,time:"15 min (prep día anterior)",ahead:true,
+          ing:[{q:"1 bote",i:"judías blancas cocidas (400 g)"},{q:"2",i:"pimientos asados (de bote o recién asados)"},{q:"60 g",i:"queso feta"},{q:"1",i:"tomate grande en daditos"},{q:"1 manojo",i:"albahaca o perejil"},{q:"2 cdas",i:"aceite de oliva"},{q:"1 cda",i:"vinagre de Jerez"}],
+          steps:["Escurrir y enjuagar las judías. Mezclar con los pimientos en tiras, el tomate y la albahaca.","Aliñar con aceite y vinagre. Desmigajar el feta por encima. Guardar en tupper para el día siguiente."]},
+        merienda:{name:"Zanahoria con tahini y semillas de sésamo",kcal:175,protein:5,carbs:18,fat:9,time:"3 min",ahead:false,
+          ing:[{q:"3",i:"zanahorias en bastones"},{q:"2 cdas",i:"tahini"},{q:"½",i:"limón (zumo)"},{q:"1 cdta",i:"semillas de sésamo"}],
+          steps:["Diluir el tahini con zumo de limón y un poco de agua hasta obtener textura de salsa. Dipear las zanahorias."]},
+        cena:{name:"Carrilleras de cerdo ibérico al vino tinto con puré de patata",kcal:620,protein:44,carbs:40,fat:24,time:"90 min",ahead:false,
+          ing:[{q:"4",i:"carrilleras de cerdo ibérico"},{q:"400 ml",i:"vino tinto robusto"},{q:"2",i:"cebollas"},{q:"2",i:"zanahorias"},{q:"4",i:"patatas medianas"},{q:"200 ml",i:"caldo de carne"},{q:"al gusto",i:"laurel, tomillo, sal, pimienta"}],
+          steps:["Sellar las carrilleras salpimentadas en cazuela con aceite muy caliente. Retirar. En la misma cazuela, sofrír la cebolla y zanahoria 10 min.","Volver a meter las carrilleras, añadir el vino, el caldo y las hierbas. Cocer tapado a fuego muy bajo durante 75 min: estarán tiernas cuando casi se deshagan.","Retirar las carrilleras. Colar la salsa y reducirla 5 min si es necesario. Hacer el puré cociendo las patatas y chafando con mantequilla y sal. Servir con abundante salsa."]}
+      }
+    },
+    {
+      name:"Jueves",short:"Jue",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1960,
+      meals:{
+        desayuno:{name:"Overnight oats de manzana, canela y almendras",kcal:360,protein:14,carbs:52,fat:12,time:"5 min + reposo noche",ahead:true,
+          ing:[{q:"60 g",i:"copos de avena"},{q:"200 ml",i:"leche de almendras sin azúcar"},{q:"1 cda",i:"semillas de chía"},{q:"1",i:"manzana golden rallada"},{q:"1 cdta",i:"canela molida"},{q:"1 cda",i:"almendras laminadas"},{q:"1 cdta",i:"miel"}],
+          steps:["La noche anterior: mezclar la avena, la leche de almendras y la chía en un tarro. Tapar y refrigerar.","Por la mañana: añadir la manzana rallada, la canela, las almendras y la miel. Listo para desayunar frío."]},
+        comida:{name:"Tempeh salteado con verduras orientales y arroz integral",kcal:440,protein:28,carbs:52,fat:14,time:"25 min",ahead:true,
+          ing:[{q:"150 g",i:"tempeh en dados"},{q:"1",i:"brócoli en arbolitos"},{q:"1",i:"pimiento rojo en tiras"},{q:"2 cdas",i:"salsa de soja"},{q:"1 cdta",i:"aceite de sésamo"},{q:"1 cdta",i:"jengibre rallado"},{q:"100 g",i:"arroz integral cocido"}],
+          steps:["Dorar el tempeh en sartén con aceite neutro 4 min por lado hasta que esté crujiente. Retirar.","En la misma sartén a fuego alto, saltear el brócoli y el pimiento 4 min. Añadir el jengibre, la soja y el aceite de sésamo. 1 min más.","Incorporar el tempeh y el arroz integral. Saltear todo junto 2 min."]},
+        merienda:{name:"Kéfir con fresas y semillas de calabaza",kcal:200,protein:10,carbs:16,fat:8,time:"2 min",ahead:false,
+          ing:[{q:"200 ml",i:"kéfir natural"},{q:"80 g",i:"fresas"},{q:"1 cda",i:"semillas de calabaza (pipas)"}],
+          steps:["Cortar las fresas. Mezclar con el kéfir y las pepitas."]},
+        cena:{name:"Merluza en salsa verde con almejas y guisantes",kcal:490,protein:46,carbs:20,fat:18,time:"25 min",ahead:false,
+          ing:[{q:"400 g",i:"lomos de merluza"},{q:"200 g",i:"almejas (en agua)"},{q:"100 g",i:"guisantes frescos o congelados"},{q:"3 dientes",i:"ajo"},{q:"1 manojo",i:"perejil fresco"},{q:"150 ml",i:"caldo de pescado"},{q:"150 ml",i:"vino blanco"},{q:"2 cdas",i:"aceite de oliva"}],
+          steps:["En cazuela baja, dorar el ajo picado en aceite sin que se queme. Añadir el perejil picado, el vino blanco y el caldo. Dejar reducir 2 min.","Colocar los lomos de merluza con la piel hacia arriba. Añadir las almejas y los guisantes. Tapar y cocer 7–8 min a fuego medio-bajo, agitando la cazuela ocasionalmente para que la salsa ligue sola.","Servir en la misma cazuela, espolvoreando perejil fresco picado."]}
+      }
+    },
+    {
+      name:"Viernes",short:"Vie",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1980,
+      meals:{
+        desayuno:{name:"Smoothie bowl de frutos rojos con yogur griego y granola",kcal:345,protein:18,carbs:44,fat:10,time:"8 min",ahead:false,
+          ing:[{q:"150 g",i:"frutos rojos congelados (fresa, frambuesa, arándano)"},{q:"100 g",i:"yogur griego natural"},{q:"50 ml",i:"leche de almendras"},{q:"30 g",i:"granola sin azúcar añadido"},{q:"1 cdta",i:"semillas de chía"},{q:"1 cda",i:"miel"}],
+          steps:["Triturar los frutos rojos congelados con el yogur griego y la leche hasta obtener una mezcla muy espesa, casi de helado. Si queda demasiado líquida, añadir más frutos rojos congelados.","Servir en un bol y cubrir con la granola, las semillas de chía y un hilo de miel."]},
+        comida:{name:"Arroz integral con pisto de verduras y huevo poché",kcal:455,protein:20,carbs:60,fat:14,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"100 g",i:"arroz integral cocido"},{q:"1",i:"calabacín"},{q:"1",i:"berenjena"},{q:"1",i:"pimiento rojo"},{q:"2",i:"tomates"},{q:"1",i:"cebolla"},{q:"2",i:"huevos"},{q:"al gusto",i:"ajo, aceite de oliva, sal, orégano"}],
+          steps:["Cortar todas las verduras en daditos. Sofrír en este orden: cebolla y ajo 5 min, pimiento 5 min, calabacín y berenjena 5 min, tomate 10 min. El pisto debe quedar bien concentrado.","Preparar los huevos pochados (como en la semana 1). Servir sobre el arroz integral con el pisto."]},
+        merienda:{name:"Nueces y pasas con pera",kcal:220,protein:4,carbs:28,fat:10,time:"1 min",ahead:false,
+          ing:[{q:"25 g",i:"nueces"},{q:"15 g",i:"pasas sultanas"},{q:"1",i:"pera"}],
+          steps:["Pelar y cortar la pera. Acompañar con las nueces y las pasas."]},
+        cena:{name:"Rape al all i pebre con patatas y alioli de azafrán",kcal:560,protein:46,carbs:34,fat:22,time:"40 min",ahead:false,
+          ing:[{q:"500 g",i:"rape en trozos (sin cabeza)"},{q:"4",i:"patatas medianas"},{q:"4 dientes",i:"ajo"},{q:"1 cdta",i:"pimentón de la Vera"},{q:"1 cdta",i:"pimienta negra molida gruesa"},{q:"200 ml",i:"caldo de pescado"},{q:"2 cdas",i:"aceite de oliva"},{q:"1 sobrecito",i:"azafrán"}],
+          steps:["En cazuela de barro o sartén profunda, dorar el ajo picado en aceite. Añadir el pimentón y la pimienta, tostar 30 seg. Incorporar el caldo caliente con el azafrán disuelto.","Pelar y cortar las patatas en rodajas de 1 cm. Añadir al caldo y cocer 10 min.","Incorporar el rape salpimentado. Cocer tapado a fuego medio 8–10 min hasta que el rape esté opaco y las patatas tiernas. Rectificar de sal."]}
+      }
+    },
+    {
+      name:"Sábado",short:"Sáb",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Shakshuka de especias con pan de espelta",kcal:390,protein:22,carbs:32,fat:16,time:"20 min",ahead:false,
+          ing:[{q:"3",i:"huevos"},{q:"2",i:"tomates maduros (o ½ lata triturado)"},{q:"1",i:"pimiento rojo"},{q:"1",i:"cebolla"},{q:"1 cdta",i:"comino molido"},{q:"½ cdta",i:"pimentón"},{q:"½ cdta",i:"cayena (opcional)"},{q:"2 rebanadas",i:"pan de espelta para mojar"}],
+          steps:["Sofrír la cebolla y el pimiento en aceite 8 min. Añadir las especias y tostar 1 min. Incorporar el tomate troceado y cocer 10 min.","Hacer 3 hoyos en la salsa con una cuchara. Cascar un huevo en cada hoyo. Tapar y cocer a fuego bajo 5–6 min hasta que las claras estén cuajadas pero las yemas líquidas.","Servir en la misma sartén con el pan para mojar."]},
+        comida:{name:"Crema de calabacín con langostinos salteados y crujiente de sésamo",kcal:380,protein:26,carbs:28,fat:16,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"4",i:"calabacines medianos"},{q:"1",i:"puerro"},{q:"600 ml",i:"caldo de verduras"},{q:"150 g",i:"langostinos pelados"},{q:"1 cdta",i:"semillas de sésamo negro"},{q:"2 cdas",i:"aceite de oliva"},{q:"al gusto",i:"sal, pimienta blanca, eneldo"}],
+          steps:["Sofrír el puerro y los calabacines troceados en aceite 5 min. Cubrir con el caldo y cocer 20 min. Triturar muy fino. Guardar en la nevera.","Al servir: calentar la crema y saltear los langostinos en sartén muy caliente con sal y eneldo, 1 min por lado.","Servir la crema con los langostinos y espolvorear el sésamo negro."]},
+        merienda:{name:"Manzana asada con canela y avellanas",kcal:165,protein:2,carbs:28,fat:5,time:"20 min",ahead:false,
+          ing:[{q:"1",i:"manzana golden"},{q:"1 cdta",i:"canela"},{q:"15 g",i:"avellanas troceadas"},{q:"1 cdta",i:"miel"}],
+          steps:["Vaciar levemente el centro de la manzana, rellenar con la canela y la miel. Hornear a 180 °C durante 18 min hasta que esté tierna. Cubrir con avellanas."]},
+        cena:{name:"Caballa confitada en aceite de oliva con tomate asado y albahaca",kcal:560,protein:40,carbs:14,fat:32,time:"35 min",ahead:false,
+          ing:[{q:"400 g",i:"filetes de caballa frescos"},{q:"300 g",i:"tomates cherry o ramos"},{q:"200 ml",i:"aceite de oliva virgen extra"},{q:"3 dientes",i:"ajo"},{q:"1 manojo",i:"albahaca fresca"},{q:"al gusto",i:"sal, pimienta, tomillo"}],
+          steps:["Colocar los tomates en bandeja, rociar con aceite, sal y tomillo. Asar a 180 °C durante 25 min hasta que arruguen y caramelicen.","Calentar el aceite con el ajo laminado hasta 65 °C. Sumergir los filetes de caballa 12 min a esta temperatura constante.","Servir la caballa lascada sobre los tomates asados, napando con el aceite aromático y las hojas de albahaca."]}
+      }
+    },
+    {
+      name:"Domingo",short:"Dom",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1870,
+      meals:{
+        desayuno:{name:"French toast de espelta con canela y frutas del bosque",kcal:400,protein:18,carbs:48,fat:14,time:"15 min",ahead:false,
+          ing:[{q:"3 rebanadas gruesas",i:"pan de espelta del día anterior"},{q:"2",i:"huevos"},{q:"80 ml",i:"leche"},{q:"1 cdta",i:"canela"},{q:"1 cdta",i:"vainilla"},{q:"1 cda",i:"mantequilla"},{q:"100 g",i:"frutos rojos"},{q:"1 cda",i:"miel o sirope de arce"}],
+          steps:["Batir los huevos con la leche, la canela y la vainilla. Sumergir las rebanadas de pan hasta que absorban la mezcla.","Cocinar en sartén con mantequilla a fuego medio, 2–3 min por cada lado hasta que estén doradas y fragantes.","Servir con los frutos rojos y la miel."]},
+        comida:{name:"Risotto de setas con parmesano y aceite de trufa",kcal:580,protein:22,carbs:62,fat:20,time:"35 min",ahead:false,
+          ing:[{q:"160 g",i:"arroz arbóreo"},{q:"300 g",i:"setas mixtas (champiñón, shiitake)"},{q:"20 g",i:"setas secas (porcini/boletus)"},{q:"1 vaso",i:"vino blanco seco"},{q:"800 ml",i:"caldo de verduras caliente"},{q:"1",i:"cebolla pequeña"},{q:"40 g",i:"parmesano rallado"},{q:"1 cda",i:"mantequilla + aceite de trufa"}],
+          steps:["Hidratar las setas secas en agua caliente 20 min. Reservar el agua de hidratación (colada) para añadir al caldo.","Sofrír la cebolla picada en aceite 5 min. Añadir las setas frescas y saltear 5 min. Incorporar el arroz y nacarar 2 min. Añadir el vino y remover hasta que se absorba.","Ir añadiendo el caldo caliente cazo a cazo, removiendo constantemente. El proceso toma 18–20 min. Al final, retirar del fuego y añadir la mantequilla y el parmesano. Mantecatura enérgica. Unas gotas de aceite de trufa al servir."]},
+        merienda:{name:"Fruta de temporada",kcal:130,protein:1,carbs:30,fat:0,time:"1 min",ahead:false,
+          ing:[{q:"lo que haya",i:"fruta fresca de temporada"}],
+          steps:["Disfrutar de la fruta de temporada."]},
+        cena:{name:"Sopa miso con tofu, wakame y cebollino",kcal:260,protein:18,carbs:16,fat:10,time:"15 min",ahead:false,
+          ing:[{q:"2 cdas",i:"pasta de miso blanco (shiro miso)"},{q:"120 g",i:"tofu firme en dados"},{q:"10 g",i:"alga wakame seca"},{q:"800 ml",i:"agua o dashi"},{q:"2",i:"cebollinos picados"},{q:"1 cdta",i:"aceite de sésamo"}],
+          steps:["Hidratar el wakame en agua fría 5 min. Escurrir.","Calentar el agua/dashi sin que hierva. Disolver la pasta de miso en un cucharón del caldo templado y añadir al cazo. Nunca dejar hervir el miso una vez incorporado.","Añadir el tofu y el wakame. Servir en cuenco con el cebollino y el aceite de sésamo."]}
+      }
+    }
+  ]
+};
+
+const W3 = {
+  id: 3, label: "Semana 3",
+  shopping: {
+    trip1: {
+      label: "Compra del Lunes",
+      desc: "Frescos para Lun–Mié · Despensa · Lácteos",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas (Lun–Mié)", items:[
+          { name:"Bacalao desalado (lomo)", qty:"400 g", sub:"Merluza o corvina · lunes cena pil-pil, comprar ese día" },
+          { name:"Salmón ahumado", qty:"120 g", sub:"Trucha ahumada · lunes desayuno" },
+          { name:"Pechuga de pollo", qty:"300 g", sub:"Muslos deshuesados · martes comida + viernes Caesar" },
+          { name:"Secreto ibérico", qty:"400 g", sub:"Presa ibérica o solomillo de cerdo · martes cena" },
+          { name:"Carne picada de ternera", qty:"300 g", sub:"Carne picada mixta · miércoles cena lasaña" },
+          { name:"Huevos L", qty:"12 unidades", sub:"—" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras (Lun–Mié + conservan)", items:[
+          { name:"Guisantes (frescos o congelados)", qty:"400 g", sub:"Habas · lunes comida crema fría" },
+          { name:"Cebolleta", qty:"2 unidades", sub:"Cebolla suave · lunes comida" },
+          { name:"Pimiento rojo", qty:"3 unidades", sub:"Pimientos del piquillo · martes + viernes" },
+          { name:"Pepino", qty:"2 unidades", sub:"Apio · martes comida + jueves hummus" },
+          { name:"Zanahoria", qty:"5 unidades", sub:"Chirivía · miércoles bowl + jueves soba + viernes papillote + dom sopa" },
+          { name:"Berenjenas", qty:"2 grandes", sub:"Calabacín · miércoles cena lasaña" },
+          { name:"Puerro", qty:"2 unidades", sub:"Cebolleta · viernes papillote + domingo sopa" },
+          { name:"Apio", qty:"1 rama", sub:"Puerro · domingo sopa fideos" },
+          { name:"Coliflor pequeña", qty:"1 unidad", sub:"Brócoli · jueves cena vieiras" },
+          { name:"Cebolla amarilla", qty:"3 unidades", sub:"Cebolleta · toda la semana" },
+          { name:"Ajo", qty:"2 cabezas", sub:"Pasta de ajo" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas (semana entera)", items:[
+          { name:"Manzana golden", qty:"4 unidades", sub:"Pera · lunes merienda + sábado porridge" },
+          { name:"Plátano", qty:"3 unidades", sub:"Mango · martes kéfir + jueves overnight oats" },
+          { name:"Frambuesas o frutos rojos", qty:"150 g", sub:"Arándanos · miércoles desayuno skyr" },
+          { name:"Uvas o higos de temporada", qty:"200 g", sub:"Cerezas · viernes merienda" },
+          { name:"Fruta de temporada", qty:"2 piezas", sub:"Lo que haya · domingo merienda" },
+        ]},
+        cereales: { icon:"🌾", name:"Cereales y Legumbres", items:[
+          { name:"Pan de espelta integral", qty:"1 barra (400 g)", sub:"Pan de centeno · lunes desayuno + domingo bened." },
+          { name:"Pan integral o de centeno (para french toast)", qty:"½ barra", sub:"Pan de molde integral · viernes" },
+          { name:"Copos de avena", qty:"400 g", sub:"Muesli · martes porridge + jueves overnight + sábado" },
+          { name:"Quinoa", qty:"200 g", sub:"Cuscús integral · martes comida" },
+          { name:"Fideos soba", qty:"200 g", sub:"Fideos de trigo integral · jueves comida" },
+          { name:"Fideos finos (pasta nº 3)", qty:"100 g", sub:"Fideos de arroz · domingo cena sopa" },
+          { name:"Arroz redondo", qty:"200 g", sub:"Arroz bomba · domingo comida caldoso" },
+          { name:"Granola sin azúcar", qty:"50 g", sub:"Muesli crujiente · miércoles desayuno" },
+          { name:"Lentejas pardinas", qty:"200 g", sub:"Lentejas verdes · miércoles comida bowl" },
+          { name:"Garbanzos cocidos (bote)", qty:"1 bote (400 g)", sub:"Garbanzos en seco cocidos · jueves hummus" },
+        ]},
+        lacteos: { icon:"🧀", name:"Lácteos (toda la semana)", items:[
+          { name:"Skyr (o yogur griego muy denso)", qty:"2 unidades (150 g)", sub:"Quark · miércoles desayuno" },
+          { name:"Kéfir natural", qty:"1 botella (500 ml)", sub:"Yogur líquido · martes merienda" },
+          { name:"Queso ricotta", qty:"150 g", sub:"Requesón · lunes desayuno + miércoles lasaña" },
+          { name:"Parmesano en cuña", qty:"80 g", sub:"Grana padano · miércoles lasaña + viernes Caesar + dom sopa" },
+          { name:"Queso de cabra rulo", qty:"80 g", sub:"Feta griego · sábado crema de tomate" },
+          { name:"Requesón", qty:"100 g", sub:"Ricotta · sábado merienda" },
+          { name:"Yogur griego natural", qty:"2 unidades", sub:"Skyr · dom holandesa ligera + jueves hummus" },
+          { name:"Panceta ibérica en lonchas", qty:"60 g", sub:"Bacon ahumado · jueves cena vieiras" },
+          { name:"Mantequilla sin sal", qty:"30 g", sub:"AOVE · jueves vieiras + viernes french toast" },
+        ]},
+        despensa: { icon:"🫙", name:"Despensa y Frutos Secos", items:[
+          { name:"Aceite de oliva virgen extra", qty:"500 ml", sub:"—" },
+          { name:"Caldo de pollo (brick)", qty:"1,5 litros", sub:"Pastilla de caldo · jueves vieiras + domingo sopa" },
+          { name:"Caldo de verduras (brick)", qty:"1 litro", sub:"Pastilla" },
+          { name:"Tomate triturado (lata)", qty:"1 lata", sub:"Tomate natural pelado · miércoles ragú lasaña" },
+          { name:"Garbanzos cocidos (bote)", qty:"1 bote", sub:"Para el hummus del jueves si no tienes" },
+          { name:"Tahini (pasta de sésamo)", qty:"1 tarro", sub:"Mantequilla de almendras · jueves hummus" },
+          { name:"Salsa de soja baja en sal", qty:"pequeño bote", sub:"Tamari · jueves soba" },
+          { name:"Aceite de sésamo", qty:"pequeño bote", sub:"Omitir · jueves soba + domingo sopa" },
+          { name:"Vinagre de arroz", qty:"—", sub:"Vinagre de manzana · jueves soba" },
+          { name:"Vinagre de Módena", qty:"—", sub:"Vinagre de Jerez · sábado crema tomate" },
+          { name:"Mostaza de Dijon", qty:"1 tarro", sub:"Mostaza antigua · domingo holandesa + viernes Caesar" },
+          { name:"Cacao puro sin azúcar", qty:"—", sub:"Cacao en polvo sin azúcar · jueves overnight" },
+          { name:"Comino molido, cúrcuma", qty:"—", sub:"Especies básicas · miércoles lentejas" },
+          { name:"Pimentón de la Vera (ahumado)", qty:"—", sub:"Pimentón normal" },
+          { name:"Azafrán", qty:"1 sobrecito", sub:"Colorante · domingo arroz caldoso" },
+          { name:"Orégano, laurel, tomillo, eneldo", qty:"—", sub:"Hierbas secas variadas" },
+          { name:"Piñones tostados", qty:"40 g", sub:"Pipas de calabaza · sábado porridge" },
+          { name:"Almendras laminadas", qty:"60 g", sub:"Pistachos laminados · viernes french toast" },
+          { name:"Avellanas tostadas", qty:"50 g", sub:"Almendras · jueves overnight oats" },
+          { name:"Nueces", qty:"40 g", sub:"Pecanas · viernes merienda" },
+          { name:"Pistachos sin sal", qty:"30 g", sub:"Nueces · sábado merienda" },
+          { name:"Edamame descongelado (bolsa)", qty:"150 g", sub:"Guisantes · jueves fideos soba" },
+          { name:"Semillas de sésamo negro", qty:"20 g", sub:"Sésamo blanco · jueves soba" },
+          { name:"Pasta de anchoa (tubo)", qty:"—", sub:"Anchoa en aceite · viernes ensalada Caesar" },
+          { name:"Leche de almendras sin azúcar", qty:"500 ml", sub:"Leche de avena · martes porridge + jueves overnight" },
+        ]},
+      }
+    },
+    trip2: {
+      label: "Reposición del Jueves",
+      desc: "Marisco y pescado fresco para Jue–Dom",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas frescas (Jue–Dom)", items:[
+          { name:"Vieiras o zamburiñas", qty:"8–10 piezas", sub:"Zamburiñas congeladas · jueves cena, comprar ese día" },
+          { name:"Lubina en filetes", qty:"350 g", sub:"Dorada o besugo en filetes · viernes cena papillote" },
+          { name:"Pulpo cocido (ya limpio)", qty:"600 g", sub:"Comprar en pescadería ya cocido · sábado cena, comprar sábado" },
+          { name:"Jamón ibérico en lonchas finas", qty:"60 g", sub:"Jamón serrano curado · domingo desayuno" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras frescas (Jue–Dom)", items:[
+          { name:"Tomates maduros grandes", qty:"6 unidades", sub:"Tomate en lata si no están buenos · sábado crema" },
+          { name:"Cebolla morada", qty:"1 unidad", sub:"Cebolla roja · sábado crema asada" },
+          { name:"Calabacín", qty:"1 mediano", sub:"Berenjena · domingo comida arroz caldoso" },
+          { name:"Pimiento rojo (extra)", qty:"1 unidad", sub:"Pimiento verde · domingo arroz" },
+          { name:"Tomate maduro (dom arroz)", qty:"1 unidad", sub:"Tomate triturado · domingo" },
+          { name:"Albahaca fresca", qty:"1 manojo", sub:"Perejil · sábado crema de tomate" },
+          { name:"Jengibre fresco", qty:"1 trocito (3 cm)", sub:"Jengibre en polvo · viernes papillote" },
+          { name:"Limones", qty:"2 unidades", sub:"Lima · viernes" },
+          { name:"Patatas medianas", qty:"4 unidades", sub:"Boniato · sábado cena pulpo cachelos" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas frescas (Jue–Dom)", items:[
+          { name:"Fresas frescas", qty:"150 g", sub:"Frutos rojos congelados · viernes french toast" },
+          { name:"Fruta de temporada", qty:"4 piezas", sub:"Lo que haya · domingo merienda" },
+        ]},
+      }
+    }
+  },
+  days: [
+    {
+      name:"Lunes",short:"Lun",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1960,
+      meals:{
+        desayuno:{name:"Tostadas de espelta con ricotta, salmón ahumado y eneldo",kcal:370,protein:22,carbs:32,fat:14,time:"8 min",ahead:false,
+          ing:[{q:"2 rebanadas",i:"pan de espelta integral"},{q:"60 g",i:"queso ricotta"},{q:"80 g",i:"salmón ahumado en láminas"},{q:"eneldo fresco",i:"al gusto"},{q:"½",i:"limón (unas gotas)"},{q:"al gusto",i:"pimienta negra, sal en escamas"}],
+          steps:["Tostar el pan. Mezclar el ricotta con unas gotas de limón, pimienta y una pizca de sal.","Untar el ricotta sobre las tostadas. Colocar las láminas de salmón encima.","Terminar con el eneldo fresco picado y sal en escamas."]},
+        comida:{name:"Crema fría de guisantes con menta y queso feta",kcal:430,protein:20,carbs:48,fat:14,time:"25 min (prep día anterior)",ahead:true,
+          ing:[{q:"400 g",i:"guisantes frescos o congelados"},{q:"1",i:"cebolleta"},{q:"600 ml",i:"caldo de verduras"},{q:"60 g",i:"queso feta"},{q:"1 manojo",i:"menta fresca"},{q:"1",i:"limón"},{q:"2 cdas",i:"aceite de oliva"}],
+          steps:["Saltear la cebolleta en aceite 5 min. Añadir los guisantes y el caldo. Cocer 10 min.","Triturar con la menta hasta que quede muy fino. Añadir el zumo de limón y ajustar de sal. Enfriar.","Guardar en nevera. Servir frío con el feta desmenuzado y un hilo de aceite."]},
+        merienda:{name:"Manzana con mantequilla de anacardos",kcal:190,protein:4,carbs:26,fat:8,time:"2 min",ahead:false,
+          ing:[{q:"1",i:"manzana golden"},{q:"2 cdas",i:"mantequilla de anacardos (o de almendras)"}],
+          steps:["Cortar la manzana en gajos. Dipear con la mantequilla de anacardos."]},
+        cena:{name:"Bacalao al pil-pil con pimientos del piquillo",kcal:490,protein:44,carbs:8,fat:28,time:"35 min",ahead:false,
+          ing:[{q:"400 g",i:"lomo de bacalao desalado"},{q:"6 dientes",i:"ajo"},{q:"200 ml",i:"aceite de oliva virgen extra"},{q:"6",i:"pimientos del piquillo (bote o fresco)"},{q:"1",i:"guindilla (opcional)"}],
+          steps:["Confitar el ajo laminado en el aceite a fuego muy bajo 10 min — no debe dorarse, solo perfumar. Retirar los ajos y reservar.","Bajar el aceite a 65–70 °C. Colocar el bacalao con la piel hacia arriba. Cocinar 8 min. Retirar el bacalao y reservar.","Agitar la cazuela en círculos sobre el fuego para ligar la gelatina del bacalao con el aceite hasta obtener una salsa cremosa y blanca (pil-pil). Servir el bacalao bañado con la salsa y los pimientos al lado."]}
+      }
+    },
+    {
+      name:"Martes",short:"Mar",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:2000,
+      meals:{
+        desayuno:{name:"Porridge de avena con mango, coco tostado y miel",kcal:380,protein:12,carbs:60,fat:12,time:"8 min",ahead:false,
+          ing:[{q:"70 g",i:"copos de avena"},{q:"250 ml",i:"leche de almendras o entera"},{q:"½",i:"mango maduro en daditos"},{q:"20 g",i:"coco rallado tostado"},{q:"1 cdta",i:"miel"},{q:"pizca",i:"canela"}],
+          steps:["Cocer la avena con la leche a fuego medio 5 min removiendo. Apagar y reposar 1 min.","Servir con el mango, el coco tostado, la miel y una pizca de canela."]},
+        comida:{name:"Ensalada de quinoa con pollo a la plancha, aguacate y vinagreta de limón",kcal:460,protein:34,carbs:40,fat:16,time:"25 min (prep día anterior)",ahead:true,
+          ing:[{q:"80 g",i:"quinoa"},{q:"150 g",i:"pechuga de pollo"},{q:"1",i:"aguacate maduro"},{q:"1",i:"pepino en daditos"},{q:"1 manojo",i:"cilantro o perejil fresco"},{q:"2 cdas",i:"aceite de oliva"},{q:"1",i:"limón (zumo)"},{q:"sal y pimienta",i:"al gusto"}],
+          steps:["Cocer la quinoa en el doble de agua con sal 15 min. Escurrir y enfriar.","Sazonar el pollo y cocinar a la plancha 4 min por lado. Dejar reposar y filetear fino.","Mezclar la quinoa con el pepino, el aguacate en dados y el cilantro. Aliñar con aceite y limón. Añadir el pollo. Refrigerar para el día siguiente."]},
+        merienda:{name:"Kéfir con plátano y semillas de girasol",kcal:200,protein:8,carbs:26,fat:6,time:"2 min",ahead:false,
+          ing:[{q:"200 ml",i:"kéfir natural"},{q:"1",i:"plátano en rodajas"},{q:"1 cda",i:"semillas de girasol sin sal"}],
+          steps:["Poner el plátano en rodajas en un vaso o bol. Añadir el kéfir y las semillas."]},
+        cena:{name:"Secreto ibérico a la plancha con chimichurri de perejil y boniato asado",kcal:550,protein:42,carbs:28,fat:26,time:"40 min",ahead:false,
+          ing:[{q:"400 g",i:"secreto ibérico (o presa)"},{q:"2",i:"boniatos medianos"},{q:"1 manojo",i:"perejil fresco"},{q:"1 diente",i:"ajo"},{q:"1 cdta",i:"orégano seco"},{q:"pizca",i:"guindilla en copos"},{q:"2 cdas",i:"vinagre de manzana"},{q:"4 cdas",i:"aceite de oliva virgen extra"}],
+          steps:["Precalentar horno a 200 °C. Cortar los boniatos en gajos con piel. Aliñar con aceite y sal. Hornear 30 min girando a mitad.","Para el chimichurri: picar muy fino el perejil y el ajo, añadir el orégano, la guindilla, el vinagre y el aceite. Dejar reposar al menos 15 min.","Sacar el secreto de la nevera 20 min antes. Cocinar en plancha muy caliente 3–4 min por lado. Dejar reposar 3 min antes de cortar en contra de la fibra. Servir con el chimichurri y los boniatos."]}
+      }
+    },
+    {
+      name:"Miércoles",short:"Mié",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1860,
+      meals:{
+        desayuno:{name:"Skyr con granola, frambuesas y miel",kcal:320,protein:22,carbs:36,fat:8,time:"3 min",ahead:false,
+          ing:[{q:"150 g",i:"skyr (o yogur griego muy denso)"},{q:"30 g",i:"granola sin azúcar"},{q:"100 g",i:"frambuesas o frutos rojos"},{q:"1 cdta",i:"miel"}],
+          steps:["Poner el skyr en un bol. Cubrir con la granola, las frambuesas y un hilo de miel."]},
+        comida:{name:"Bowl de lentejas pardinas con zanahoria, comino y huevo duro",kcal:420,protein:24,carbs:48,fat:10,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"lentejas pardinas"},{q:"2",i:"zanahorias en daditos"},{q:"1",i:"cebolla pequeña"},{q:"1 cdta",i:"comino molido"},{q:"½ cdta",i:"cúrcuma"},{q:"2",i:"huevos duros"},{q:"2 cdas",i:"aceite de oliva"},{q:"½",i:"limón"}],
+          steps:["Cocer las lentejas con la cebolla y la zanahoria en agua fría durante 25 min. Escurrir.","Añadir el comino y la cúrcuma. Ajustar de sal. Dejar enfriar. Guardar en tupper.","Al servir: añadir el huevo duro troceado, un hilo de aceite y zumo de limón."]},
+        merienda:{name:"Plátano con chocolate negro 85%",kcal:170,protein:3,carbs:28,fat:7,time:"1 min",ahead:false,
+          ing:[{q:"1",i:"plátano maduro"},{q:"25 g",i:"chocolate negro 85%"}],
+          steps:["Pelar el plátano y partir en rodajas. Acompañar con el chocolate negro partido en trozos."]},
+        cena:{name:"Lasaña de berenjena con ragú de ternera y ricotta",kcal:570,protein:40,carbs:32,fat:28,time:"65 min",ahead:false,
+          ing:[{q:"2",i:"berenjenas grandes"},{q:"300 g",i:"carne picada de ternera"},{q:"1 lata (400 g)",i:"tomate triturado"},{q:"1",i:"cebolla"},{q:"2 dientes",i:"ajo"},{q:"150 g",i:"queso ricotta"},{q:"50 g",i:"parmesano rallado"},{q:"al gusto",i:"orégano, laurel, sal, pimienta"}],
+          steps:["Cortar las berenjenas en láminas de 5 mm. Salar y dejar escurrir 15 min. Secar con papel y asar en bandeja con aceite a 200 °C durante 15 min, dando la vuelta.","Para el ragú: sofrír la cebolla y el ajo 5 min. Añadir la carne y dorar bien. Incorporar el tomate, el orégano y el laurel. Cocer 20 min a fuego medio. Ajustar de sal.","Montar en una bandeja de horno: berenjena, ragú, cucharadas de ricotta; repetir. Terminar con el parmesano rallado. Hornear a 180 °C durante 25 min hasta que gratine."]}
+      }
+    },
+    {
+      name:"Jueves",short:"Jue",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1960,
+      meals:{
+        desayuno:{name:"Overnight oats de cacao, plátano y avellanas",kcal:360,protein:13,carbs:50,fat:13,time:"5 min + reposo noche",ahead:true,
+          ing:[{q:"60 g",i:"copos de avena"},{q:"200 ml",i:"leche de almendras"},{q:"1 cda",i:"cacao puro sin azúcar"},{q:"1",i:"plátano (mitad dentro, mitad al servir)"},{q:"20 g",i:"avellanas tostadas troceadas"},{q:"1 cdta",i:"miel"}],
+          steps:["La noche anterior: mezclar la avena, la leche y el cacao. Chafar la mitad del plátano e incorporar. Tapar y refrigerar.","Por la mañana: añadir el resto del plátano en rodajas, las avellanas y la miel."]},
+        comida:{name:"Fideos soba con edamame, zanahoria rallada y aderezo de sésamo y jengibre",kcal:430,protein:22,carbs:52,fat:14,time:"20 min (prep día anterior)",ahead:true,
+          ing:[{q:"80 g",i:"fideos soba"},{q:"100 g",i:"edamame descongelado"},{q:"1",i:"zanahoria rallada"},{q:"2 cdas",i:"salsa de soja baja en sal"},{q:"1 cda",i:"aceite de sésamo"},{q:"1 cdta",i:"jengibre rallado"},{q:"1 cdta",i:"vinagre de arroz"},{q:"1 cdta",i:"semillas de sésamo negro"}],
+          steps:["Cocer los fideos soba 3–4 min en agua hirviendo. Escurrir y enfriar bajo agua fría.","Mezclar la soja, el aceite de sésamo, el jengibre y el vinagre para el aderezo.","Combinar los fideos con el edamame, la zanahoria y el aderezo. Espolvorear el sésamo. Guardar en tupper."]},
+        merienda:{name:"Hummus con bastones de pepino y zanahoria",kcal:200,protein:8,carbs:18,fat:10,time:"5 min",ahead:false,
+          ing:[{q:"150 g",i:"hummus (o 200 g garbanzos + tahini + limón + ajo)"},{q:"1",i:"pepino en bastones"},{q:"2",i:"zanahorias en bastones"}],
+          steps:["Si haces el hummus casero: triturar los garbanzos con tahini, limón, ajo y sal hasta textura muy cremosa. Ajustar de agua.","Servir con los bastones de pepino y zanahoria para dipear."]},
+        cena:{name:"Vieiras a la plancha con crema de coliflor y panceta ibérica crujiente",kcal:490,protein:40,carbs:16,fat:26,time:"30 min",ahead:false,
+          ing:[{q:"8–10",i:"vieiras o zamburiñas"},{q:"1",i:"coliflor pequeña"},{q:"200 ml",i:"caldo de pollo"},{q:"60 g",i:"panceta ibérica en lonchas finas"},{q:"1 cda",i:"mantequilla"},{q:"cebollino",i:"para decorar"},{q:"sal, pimienta",i:"al gusto"}],
+          steps:["Cocer la coliflor en el caldo 15 min hasta que esté muy tierna. Triturar con la mantequilla hasta obtener una crema muy lisa. Ajustar de sal.","Dorar la panceta en sartén seca a fuego medio hasta que esté crujiente. Retirar y usar la misma sartén bien caliente para las vieiras.","Secar bien las vieiras con papel. Cocinar 1 min por cada cara en la sartén caliente con sal. El interior debe quedar nacarado. Montar la crema en la base, vieiras encima, panceta crujiente y cebollino picado."]}
+      }
+    },
+    {
+      name:"Viernes",short:"Vie",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1980,
+      meals:{
+        desayuno:{name:"French toast integral con canela, fresas y almendras laminadas",kcal:370,protein:16,carbs:44,fat:14,time:"15 min",ahead:false,
+          ing:[{q:"3 rebanadas gruesas",i:"pan integral o de espelta"},{q:"2",i:"huevos"},{q:"80 ml",i:"leche"},{q:"1 cdta",i:"canela"},{q:"½ cdta",i:"vainilla"},{q:"1 cda",i:"mantequilla"},{q:"150 g",i:"fresas"},{q:"15 g",i:"almendras laminadas tostadas"}],
+          steps:["Batir los huevos con la leche, la canela y la vainilla. Sumergir las rebanadas hasta que absorban la mezcla.","Dorar en sartén con la mantequilla a fuego medio, 2–3 min por lado hasta que estén doradas.","Servir con las fresas laminadas y las almendras. Opcional: un hilo de miel."]},
+        comida:{name:"Ensalada Caesar de pollo a la plancha con aderezo ligero",kcal:450,protein:38,carbs:34,fat:16,time:"20 min (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"pechuga de pollo"},{q:"1",i:"corazón de lechuga romana"},{q:"30 g",i:"parmesano rallado"},{q:"2 rebanadas",i:"pan de espelta (para picatostes)"},{q:"2 cdas",i:"yogur griego"},{q:"1 cdta",i:"mostaza de Dijon"},{q:"½",i:"limón"},{q:"1 diente",i:"ajo rallado"},{q:"½",i:"anchoa (pasta de anchoa)"}],
+          steps:["Sazonar el pollo y cocinar a la plancha 4 min por lado. Dejar reposar y filetear.","Tostar el pan en dados en sartén con un chorrito de aceite hasta que estén crujientes.","Mezclar el yogur, la mostaza, el limón, el ajo rallado y la anchoa para el aderezo. Combinar la lechuga con la salsa, añadir el pollo, los picatostes y el parmesano."]},
+        merienda:{name:"Uvas o higos con nueces",kcal:215,protein:4,carbs:28,fat:10,time:"1 min",ahead:false,
+          ing:[{q:"200 g",i:"uvas o higos frescos de temporada"},{q:"20 g",i:"nueces"}],
+          steps:["Comer la fruta con las nueces. Si son higos, abrir por la mitad y añadir unas gotas de miel."]},
+        cena:{name:"Lubina a la papillote con juliana de verduras, jengibre y aceite de sésamo",kcal:520,protein:44,carbs:16,fat:26,time:"30 min",ahead:false,
+          ing:[{q:"350 g",i:"lubina en filetes (2 filetes)"},{q:"1",i:"puerro en juliana fina"},{q:"1",i:"zanahoria en juliana"},{q:"1",i:"pimiento rojo en juliana"},{q:"2 cm",i:"jengibre fresco rallado"},{q:"2 cdas",i:"salsa de soja baja en sal"},{q:"1 cdta",i:"aceite de sésamo"},{q:"papel sulfurizado",i:"o papel de aluminio"}],
+          steps:["Mezclar la soja con el aceite de sésamo y el jengibre rallado para la marinada.","Sobre papel sulfurizado grande, colocar la juliana de verduras como cama. Poner los filetes de lubina encima y regar con la marinada.","Cerrar el paquete herméticamente doblando los bordes varias veces. Hornear a 200 °C durante 18 min. Abrir en la mesa para disfrutar el aroma."]}
+      }
+    },
+    {
+      name:"Sábado",short:"Sáb",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Porridge de avena con manzana rallada, canela y piñones",kcal:370,protein:12,carbs:52,fat:14,time:"10 min",ahead:false,
+          ing:[{q:"70 g",i:"copos de avena"},{q:"250 ml",i:"leche"},{q:"1",i:"manzana golden rallada"},{q:"1 cdta",i:"canela molida"},{q:"20 g",i:"piñones tostados"},{q:"1 cdta",i:"miel"}],
+          steps:["Cocer la avena con la leche a fuego medio 5 min. Al retirar del fuego, añadir la manzana rallada y la canela. Mezclar.","Servir con los piñones tostados y la miel por encima."]},
+        comida:{name:"Crema de tomate asado con albahaca y queso de cabra",kcal:380,protein:14,carbs:36,fat:18,time:"40 min (prep día anterior)",ahead:true,
+          ing:[{q:"6",i:"tomates maduros grandes"},{q:"1",i:"cebolla morada"},{q:"3 dientes",i:"ajo sin pelar"},{q:"1 manojo",i:"albahaca fresca"},{q:"600 ml",i:"caldo de verduras"},{q:"60 g",i:"queso de cabra rulo"},{q:"3 cdas",i:"aceite de oliva"},{q:"1 cda",i:"vinagre de Módena"}],
+          steps:["Partir los tomates por la mitad, la cebolla en cuartos y el ajo sin pelar en una bandeja. Regar con aceite, sal y el vinagre. Asar a 200 °C durante 35 min hasta que caramelicen.","Exprimir el ajo asado de la piel. Triturar todo con el caldo hasta textura muy fina. Guardar.","Al servir: calentar la crema, añadir las hojas de albahaca. Servir con el queso de cabra desmenuzado y un hilo de aceite."]},
+        merienda:{name:"Requesón con miel, canela y pistachos",kcal:175,protein:8,carbs:14,fat:8,time:"2 min",ahead:false,
+          ing:[{q:"100 g",i:"requesón"},{q:"1 cdta",i:"miel"},{q:"pizca",i:"canela"},{q:"15 g",i:"pistachos sin sal troceados"}],
+          steps:["Poner el requesón en un bol. Añadir la miel, la canela y los pistachos."]},
+        cena:{name:"Pulpo a la gallega con cachelos y aceite de pimentón ahumado",kcal:570,protein:42,carbs:30,fat:26,time:"30 min",ahead:false,
+          ing:[{q:"600 g",i:"pulpo cocido (comprar ya cocido en pescadería)"},{q:"4",i:"patatas medianas"},{q:"1 cdta",i:"pimentón de la Vera ahumado"},{q:"1 cdta",i:"pimentón dulce"},{q:"4 cdas",i:"aceite de oliva virgen extra"},{q:"sal en escamas",i:"al gusto"}],
+          steps:["Cocer las patatas con piel en agua con sal 22 min hasta que estén tiernas. Pelar y cortar en rodajas gruesas.","Calentar el pulpo en agua caliente sin hervir 5–6 min para que se temple. Cortar en medallones de 1,5 cm con tijeras de cocina.","Calentar el aceite en sartén pequeña con el pimentón dulce y ahumado hasta que aromatice (no quemar). Montar: patatas en cama, pulpo encima. Regar con el aceite de pimentón y terminar con sal en escamas."]}
+      }
+    },
+    {
+      name:"Domingo",short:"Dom",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1870,
+      meals:{
+        desayuno:{name:"Huevos benedictinos con jamón ibérico y holandesa de yogur",kcal:390,protein:22,carbs:32,fat:18,time:"20 min",ahead:false,
+          ing:[{q:"2",i:"huevos muy frescos"},{q:"2 rebanadas gruesas",i:"pan de espelta"},{q:"60 g",i:"jamón ibérico en lonchas finas"},{q:"2 cdas",i:"yogur griego"},{q:"1 cdta",i:"mostaza de Dijon"},{q:"½",i:"limón"},{q:"1 cda",i:"vinagre de manzana (para pochar)"},{q:"pimienta negra",i:"al gusto"}],
+          steps:["Mezclar el yogur con la mostaza y el zumo de limón para la salsa holandesa rápida. Reservar.","Llevar agua con el vinagre a ebullición suave (sin burbujas fuertes). Crear un remolino y cascar el huevo en el centro. Cocer 3 min. Repetir con el segundo huevo.","Tostar el pan. Montar: pan tostado, lonchas de jamón ibérico, huevo pochado encima. Napar con la salsa y terminar con pimienta negra molida."]},
+        comida:{name:"Arroz caldoso de verduras con azafrán",kcal:520,protein:16,carbs:70,fat:16,time:"40 min",ahead:false,
+          ing:[{q:"160 g",i:"arroz redondo"},{q:"1",i:"calabacín en dados"},{q:"1",i:"pimiento rojo en dados"},{q:"1",i:"tomate maduro rallado"},{q:"1",i:"cebolla"},{q:"2 dientes",i:"ajo"},{q:"1,2 litros",i:"caldo de verduras caliente"},{q:"1 sobrecito",i:"azafrán (o colorante)"},{q:"2 cdas",i:"aceite de oliva"},{q:"perejil picado",i:"para servir"}],
+          steps:["Sofrír la cebolla y el ajo picados en aceite 5 min. Añadir el pimiento y el calabacín, sofrír 5 min más. Incorporar el tomate rallado y cocinar 5 min más.","Añadir el arroz y nacarar 2 min removiendo. Verter el caldo caliente con el azafrán disuelto.","Cocer a fuego vivo 16–18 min: el plato debe quedar caldoso, no seco. Espolvorear perejil fresco picado."]},
+        merienda:{name:"Fruta de temporada",kcal:130,protein:1,carbs:30,fat:0,time:"1 min",ahead:false,
+          ing:[{q:"2 piezas",i:"fruta fresca de temporada"}],
+          steps:["Disfrutar de la fruta de temporada."]},
+        cena:{name:"Sopa de fideos con caldo de pollo, verduras y parmesano",kcal:460,protein:22,carbs:48,fat:16,time:"25 min",ahead:false,
+          ing:[{q:"80 g",i:"fideos finos (nº 3)"},{q:"1,2 litros",i:"caldo de pollo"},{q:"1",i:"zanahoria en brunoise"},{q:"1 rama",i:"apio en brunoise"},{q:"1",i:"puerro en rodajas finas"},{q:"1 manojo",i:"perejil fresco"},{q:"30 g",i:"parmesano rallado"},{q:"2 cdas",i:"aceite de oliva"}],
+          steps:["Sofrír la zanahoria, el apio y el puerro en aceite 5 min a fuego medio.","Añadir el caldo caliente y cocer 10 min. Incorporar los fideos y cocer el tiempo indicado en el paquete (3–4 min).","Servir con el perejil fresco picado, el parmesano y un hilo de aceite."]}
+      }
+    }
+  ]
+};
+
+const W4 = {
+  id: 4, label: "Semana 4",
+  shopping: {
+    trip1: {
+      label: "Compra del Lunes",
+      desc: "Frescos para Lun–Mié · Despensa · Lácteos",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas (Lun–Mié)", items:[
+          { name:"Corvina (lomos o entera)", qty:"350 g", sub:"Dorada o lubina · lunes cena, comprar ese día" },
+          { name:"Muslos de pollo con hueso", qty:"4 unidades (~700 g)", sub:"Contramuslos · martes cena al ajillo" },
+          { name:"Lomos de merluza", qty:"400 g", sub:"Bacalao fresco o rape · miércoles cena vasca, aguanta 2 días" },
+          { name:"Huevos L", qty:"12 unidades", sub:"—" },
+          { name:"Jamón cocido de calidad", qty:"60 g", sub:"Pavo loncheado · lunes comida gazpacho" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras (Lun–Mié + conservan)", items:[
+          { name:"Tomates maduros grandes", qty:"6 unidades", sub:"Tomate triturado (lata) · lunes gazpacho + jueves rape" },
+          { name:"Pimiento verde", qty:"½ unidad", sub:"Pimiento italiano · lunes gazpacho" },
+          { name:"Pepino", qty:"3 unidades", sub:"Pepino holandés · lunes gazpacho + miércoles crema + viernes lentejas" },
+          { name:"Champiñones", qty:"200 g", sub:"Setas shiitake · martes cena al ajillo" },
+          { name:"Espinacas baby", qty:"200 g", sub:"Rúcula · martes comida bowl + sábado shakshuka" },
+          { name:"Patatas", qty:"4 medianas", sub:"Boniato · martes cena + domingo cocido" },
+          { name:"Cebolla amarilla", qty:"4 unidades", sub:"Cebolleta · toda la semana" },
+          { name:"Cebolla morada", qty:"2 unidades", sub:"Cebolla roja · martes comida + jueves quinoa" },
+          { name:"Ajo", qty:"2 cabezas", sub:"Pasta de ajo · toda la semana" },
+          { name:"Calabacín", qty:"2 medianos", sub:"Berenjena · jueves quinoa + dom cena crema" },
+          { name:"Aceitunas negras sin hueso", qty:"100 g", sub:"Aceitunas kalamata · lunes cena corvina" },
+          { name:"Almejas en agua (bote o frescas)", qty:"200 g", sub:"Berberechos · miércoles cena merluza vasca" },
+          { name:"Guisantes congelados", qty:"80 g", sub:"Habas · miércoles cena vasca" },
+          { name:"Espárragos verdes", qty:"1 manojo", sub:"Judías verdes · miércoles cena vasca" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas (semana entera)", items:[
+          { name:"Plátano", qty:"3 unidades", sub:"Mango · jueves batido + lunes merienda" },
+          { name:"Arándanos frescos", qty:"200 g", sub:"Arándanos congelados · martes kéfir + viernes tortitas" },
+          { name:"Frambuesas o frutos rojos", qty:"150 g", sub:"Congelados · lunes overnight oats + dom crepes" },
+          { name:"Mandarinas o naranjas", qty:"4 unidades", sub:"Cítricos de temporada · miércoles merienda + viernes cena magret" },
+          { name:"Manzana golden", qty:"2 unidades", sub:"Pera · jueves merienda" },
+          { name:"Fruta de temporada", qty:"4 piezas", sub:"Lo que haya en el mercado" },
+        ]},
+        cereales: { icon:"🌾", name:"Cereales y Legumbres", items:[
+          { name:"Pan de centeno integral", qty:"1 barra (400 g)", sub:"Pan de espelta · lunes desayuno overnight + dom crema calabaza" },
+          { name:"Pan de espelta integral", qty:"1 barra", sub:"Pan de molde integral · martes desayuno + sáb shakshuka" },
+          { name:"Copos de avena", qty:"300 g", sub:"Muesli sin azúcar · lunes overnight + jue batido + vie tortitas" },
+          { name:"Quinoa", qty:"150 g", sub:"Cuscús integral · jueves comida" },
+          { name:"Lentejas verdes o pardinas", qty:"150 g", sub:"Lentejas de Puy · viernes comida ensalada" },
+          { name:"Fideos finos (pasta)", qty:"50 g", sub:"Fideos de arroz · domingo cocido (sopa)" },
+          { name:"Arroz salvaje o negro", qty:"100 g", sub:"Arroz integral · viernes cena magret" },
+          { name:"Granola sin azúcar", qty:"50 g", sub:"Muesli crujiente · miércoles desayuno" },
+          { name:"Garbanzos cocidos (bote)", qty:"2 botes (400 g)", sub:"Garbanzos en seco · martes comida bowl + dom cocido" },
+        ]},
+        lacteos: { icon:"🧀", name:"Lácteos (toda la semana)", items:[
+          { name:"Yogur griego natural", qty:"4 unidades", sub:"Skyr · miércoles desayuno + miércoles crema + sáb merienda" },
+          { name:"Kéfir natural", qty:"500 ml", sub:"Yogur líquido · martes merienda" },
+          { name:"Queso de cabra rulo", qty:"80 g", sub:"Feta griego · martes tostadas" },
+          { name:"Queso feta griego", qty:"100 g", sub:"Queso de cabra fresco · sábado shakshuka + jueves quinoa" },
+          { name:"Requesón", qty:"150 g", sub:"Ricotta · domingo crepes" },
+          { name:"Leche de coco (lata)", qty:"1 lata (400 ml)", sub:"Leche de avena · domingo cena crema calabaza" },
+          { name:"Mantequilla sin sal", qty:"30 g", sub:"AOVE · domingo crepes" },
+          { name:"Leche de almendras", qty:"500 ml", sub:"Leche de avena · lunes overnight + jueves batido" },
+        ]},
+        despensa: { icon:"🫙", name:"Despensa y Frutos Secos", items:[
+          { name:"Aceite de oliva virgen extra", qty:"500 ml", sub:"—" },
+          { name:"Vino blanco seco", qty:"300 ml", sub:"Caldo de verduras · lunes corvina + miércoles vasca" },
+          { name:"Brandy o coñac", qty:"pequeño bote", sub:"Vino blanco · jueves rape americana" },
+          { name:"Caldo de pollo (brick)", qty:"1,5 litros", sub:"Pastilla de caldo · martes pollo + domingo cocido" },
+          { name:"Caldo de verduras (brick)", qty:"1 litro", sub:"Pastilla · sáb crema espárragos + dom calabaza" },
+          { name:"Caldo de pescado (brick)", qty:"500 ml", sub:"Fumet · miércoles vasca + jueves rape + sáb fideuà" },
+          { name:"Tomate triturado (lata)", qty:"1 lata", sub:"Tomate natural pelado · sáb shakshuka" },
+          { name:"Tahini (pasta de sésamo)", qty:"1 tarro", sub:"Mantequilla de almendras · jueves manzana" },
+          { name:"Salsa de soja baja en sal", qty:"pequeño bote", sub:"Tamari · varios" },
+          { name:"Semillas de chía", qty:"30 g", sub:"Semillas de lino · lunes overnight + martes kéfir" },
+          { name:"Semillas de girasol sin sal", qty:"30 g", sub:"Semillas de calabaza · miércoles desayuno" },
+          { name:"Pistachos sin sal", qty:"50 g", sub:"Nueces · sáb merienda + vie merienda" },
+          { name:"Almendras crudas", qty:"40 g", sub:"Anacardos · lunes merienda" },
+          { name:"Cacao puro sin azúcar", qty:"—", sub:"Cacao en polvo · lunes overnight" },
+          { name:"Vinagre de Jerez", qty:"—", sub:"Vinagre de manzana · lunes gazpacho" },
+          { name:"Comino molido, cúrcuma, pimentón", qty:"—", sub:"Especias básicas · varios" },
+          { name:"Pimentón de la Vera (dulce y ahumado)", qty:"—", sub:"Para el rape americana y el pollo" },
+          { name:"Azafrán", qty:"1 sobrecito", sub:"Colorante · sábado fideuà" },
+          { name:"Semillas de calabaza", qty:"30 g", sub:"Pipas de girasol · domingo cena crema calabaza" },
+          { name:"Sirope de arce", qty:"pequeño bote", sub:"Miel · viernes tortitas de avena" },
+        ]},
+      }
+    },
+    trip2: {
+      label: "Reposición del Jueves",
+      desc: "Pescado y marisco fresco para Jue–Dom",
+      cats: {
+        proteinas: { icon:"🥩", name:"Proteínas frescas (Jue–Dom)", items:[
+          { name:"Rape en trozos (sin cabeza)", qty:"500 g", sub:"Corvina o merluza gruesa · jueves cena, comprar ese día" },
+          { name:"Magret de pato", qty:"1 pieza (~350 g)", sub:"Contramuslos de pato · viernes cena" },
+          { name:"Gambas peladas", qty:"200 g", sub:"Langostinos · sábado comida crema espárragos" },
+          { name:"Sepia limpia", qty:"200 g", sub:"Chipirón o calamar · sábado cena fideuà" },
+          { name:"Mejillones (vivos o congelados)", qty:"200 g", sub:"Almejas · sábado cena fideuà" },
+          { name:"Panceta curada en tiras", qty:"60 g", sub:"Bacon ahumado · domingo cocido" },
+        ]},
+        verduras: { icon:"🥦", name:"Verduras frescas (Jue–Dom)", items:[
+          { name:"Espárragos verdes", qty:"1 manojo grande", sub:"Trigueros · sábado comida crema" },
+          { name:"Puerro", qty:"2 unidades", sub:"Cebolleta grande · sábado crema + dom sopa no hace falta" },
+          { name:"Pimiento rojo", qty:"2 unidades", sub:"Pimiento amarillo · jueves rape + sáb fideuà" },
+          { name:"Tomate maduro", qty:"2 unidades", sub:"Tomate triturado · jueves rape americana" },
+          { name:"Calabaza troceada", qty:"600 g", sub:"Boniato · domingo cena crema" },
+          { name:"Jengibre fresco", qty:"1 trocito (3 cm)", sub:"Jengibre en polvo · dom crema calabaza" },
+          { name:"Berza o repollo (cuarto)", qty:"1 cuarto", sub:"Lombarda · dom cocido" },
+          { name:"Zanahoria (extra)", qty:"2 unidades", sub:"Para el cocido del domingo" },
+          { name:"Patata (extra)", qty:"2 medianas", sub:"Boniato · dom cocido" },
+          { name:"Cebollino o eneldo fresco", qty:"1 manojo", sub:"Perejil · sáb crema espárragos" },
+        ]},
+        frutas: { icon:"🍎", name:"Frutas frescas (Jue–Dom)", items:[
+          { name:"Naranjas", qty:"2 unidades", sub:"Clementinas · viernes cena salsa magret" },
+          { name:"Frutos rojos congelados o frescos", qty:"100 g", sub:"Fresas · dom crepes" },
+          { name:"Fruta de temporada", qty:"4 piezas", sub:"Lo que haya en el mercado · dom merienda" },
+        ]},
+      }
+    }
+  },
+  days: [
+    {
+      name:"Lunes",short:"Lun",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1950,
+      meals:{
+        desayuno:{name:"Overnight oats de cacao y frambuesas",kcal:360,protein:13,carbs:50,fat:12,time:"5 min + reposo noche",ahead:true,
+          ing:[{q:"60 g",i:"copos de avena"},{q:"200 ml",i:"leche de almendras"},{q:"1 cda",i:"cacao puro sin azúcar"},{q:"100 g",i:"frambuesas (mitad dentro, mitad encima)"},{q:"1 cda",i:"semillas de chía"},{q:"1 cdta",i:"miel"}],
+          steps:["La noche anterior: mezclar la avena, la leche, el cacao y la chía. Añadir la mitad de las frambuesas ligeramente chafadas. Tapar y refrigerar.","Por la mañana: añadir el resto de frambuesas y la miel."]},
+        comida:{name:"Gazpacho andaluz con jamón picado y huevo duro",kcal:400,protein:20,carbs:44,fat:14,time:"15 min + enfriado (prep día anterior)",ahead:true,
+          ing:[{q:"4",i:"tomates maduros grandes"},{q:"½",i:"pimiento verde"},{q:"1",i:"pepino pelado"},{q:"½",i:"cebolla"},{q:"1 diente",i:"ajo"},{q:"3 cdas",i:"aceite de oliva"},{q:"2 cdas",i:"vinagre de Jerez"},{q:"60 g",i:"jamón cocido picado"},{q:"1",i:"huevo duro"}],
+          steps:["Triturar todos los ingredientes (excepto el jamón y el huevo) hasta que quede muy fino. Colar para mayor suavidad.","Ajustar de sal y vinagre. Refrigerar al menos 2 horas.","Servir muy frío con el jamón picado fino y el huevo duro rallado por encima."]},
+        merienda:{name:"Plátano con almendras crudas",kcal:190,protein:5,carbs:28,fat:8,time:"1 min",ahead:false,
+          ing:[{q:"1",i:"plátano"},{q:"20 g",i:"almendras crudas"}],
+          steps:["Pelar el plátano y comer con las almendras."]},
+        cena:{name:"Corvina al horno con cebolla caramelizada y aceitunas negras",kcal:500,protein:44,carbs:14,fat:26,time:"45 min",ahead:false,
+          ing:[{q:"350 g",i:"lomos de corvina (o 2 piezas enteras)"},{q:"2",i:"cebollas en juliana fina"},{q:"100 g",i:"aceitunas negras sin hueso"},{q:"tomillo",i:"fresco o seco"},{q:"100 ml",i:"vino blanco seco"},{q:"3 cdas",i:"aceite de oliva"},{q:"sal, pimienta",i:"al gusto"}],
+          steps:["Caramelizar la cebolla en sartén con aceite y una pizca de sal a fuego muy bajo 25 min, removiendo de vez en cuando. Añadir las aceitunas los últimos 5 min.","Colocar los lomos de corvina en bandeja de horno. Cubrir con la cebolla caramelizada y las aceitunas. Verter el vino por los bordes de la bandeja.","Hornear a 180 °C durante 18–20 min hasta que el pescado esté opaco."]}
+      }
+    },
+    {
+      name:"Martes",short:"Mar",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Tostadas de centeno con queso de cabra, tomate y orégano",kcal:380,protein:16,carbs:40,fat:14,time:"5 min",ahead:false,
+          ing:[{q:"2 rebanadas",i:"pan de centeno integral"},{q:"60 g",i:"queso de cabra fresco (rulo)"},{q:"2",i:"tomates en rodajas"},{q:"orégano seco",i:"al gusto"},{q:"1 cda",i:"aceite de oliva"},{q:"sal en escamas y pimienta",i:"al gusto"}],
+          steps:["Tostar el pan. Untar el queso de cabra.","Colocar las rodajas de tomate encima. Terminar con orégano, un hilo de aceite y sal en escamas."]},
+        comida:{name:"Bowl de garbanzos asados con espinacas, cúrcuma y limón",kcal:460,protein:24,carbs:52,fat:14,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"1 bote (400 g)",i:"garbanzos cocidos"},{q:"150 g",i:"espinacas baby"},{q:"1",i:"limón"},{q:"1 cdta",i:"cúrcuma molida"},{q:"1 cdta",i:"pimentón ahumado"},{q:"2 cdas",i:"aceite de oliva"},{q:"ajo en polvo, sal",i:"al gusto"}],
+          steps:["Escurrir y secar muy bien los garbanzos con papel. Mezclar con aceite, cúrcuma, pimentón, ajo en polvo y sal.","Asar en bandeja a 200 °C durante 25 min removiendo a mitad: deben quedar crujientes y dorados.","Dejar enfriar y mezclar con las espinacas baby y el zumo de limón. Guardar en tupper."]},
+        merienda:{name:"Kéfir con arándanos y semillas de chía",kcal:200,protein:10,carbs:18,fat:6,time:"3 min",ahead:false,
+          ing:[{q:"200 ml",i:"kéfir natural"},{q:"80 g",i:"arándanos frescos"},{q:"1 cdta",i:"semillas de chía"}],
+          steps:["Mezclar el kéfir con los arándanos y la chía. Dejar reposar 5 min si hay tiempo para que la chía hinche."]},
+        cena:{name:"Pollo al ajillo con champiñones, vino blanco y patatas al horno",kcal:560,protein:46,carbs:28,fat:26,time:"50 min",ahead:false,
+          ing:[{q:"4",i:"muslos de pollo con hueso"},{q:"6 dientes",i:"ajo (con piel aplastados)"},{q:"200 g",i:"champiñones enteros o en mitades"},{q:"200 ml",i:"vino blanco seco"},{q:"200 ml",i:"caldo de pollo"},{q:"tomillo, laurel",i:"al gusto"},{q:"2",i:"patatas medianas en gajos"},{q:"3 cdas",i:"aceite de oliva"}],
+          steps:["Precalentar horno a 200 °C. Sazonar y dorar los muslos en cazuela 4 min por lado. Retirar.","En la misma cazuela, dorar los ajos aplastados sin pelar 2 min. Volver a meter el pollo, verter el vino y esperar 2 min. Añadir los champiñones, el caldo y las hierbas. Tapar y cocer a fuego medio 30 min.","Mientras: hornear los gajos de patata con aceite y sal 30 min. Servir el pollo con su salsa y las patatas."]}
+      }
+    },
+    {
+      name:"Miércoles",short:"Mié",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1850,
+      meals:{
+        desayuno:{name:"Yogur griego con granola, mango y semillas de girasol",kcal:330,protein:16,carbs:38,fat:10,time:"5 min",ahead:false,
+          ing:[{q:"200 g",i:"yogur griego natural"},{q:"30 g",i:"granola sin azúcar"},{q:"½",i:"mango en dados"},{q:"1 cda",i:"semillas de girasol sin sal"},{q:"1 cdta",i:"miel"}],
+          steps:["Poner el yogur en un bol. Añadir el mango, la granola, las semillas y la miel."]},
+        comida:{name:"Crema fría de pepino y yogur al estilo tzatziki con tostadas",kcal:390,protein:14,carbs:44,fat:14,time:"15 min (prep día anterior)",ahead:true,
+          ing:[{q:"2",i:"pepinos"},{q:"200 g",i:"yogur griego"},{q:"1 diente",i:"ajo"},{q:"1 manojo",i:"eneldo o menta fresca"},{q:"2 cdas",i:"aceite de oliva"},{q:"1",i:"limón"},{q:"2 rebanadas",i:"pan de espelta para acompañar"}],
+          steps:["Pelar los pepinos y reservar un poco en daditos para decorar. Triturar el resto con el yogur, el ajo, el eneldo, el aceite y el zumo de limón. Ajustar de sal.","Refrigerar al menos 2 horas.","Servir muy fría con el pepino en dados por encima y las tostadas al lado."]},
+        merienda:{name:"Mandarina o naranja con chocolate negro 85%",kcal:165,protein:3,carbs:26,fat:6,time:"2 min",ahead:false,
+          ing:[{q:"2",i:"mandarinas o 1 naranja"},{q:"25 g",i:"chocolate negro 85%"}],
+          steps:["Pelar las mandarinas. Acompañar con el chocolate negro partido."]},
+        cena:{name:"Merluza a la vasca con almejas, espárragos y guisantes",kcal:560,protein:46,carbs:22,fat:26,time:"30 min",ahead:false,
+          ing:[{q:"400 g",i:"lomos de merluza"},{q:"200 g",i:"almejas"},{q:"100 g",i:"espárragos verdes troceados"},{q:"80 g",i:"guisantes congelados"},{q:"3 dientes",i:"ajo picado"},{q:"1 manojo",i:"perejil fresco"},{q:"150 ml",i:"vino blanco"},{q:"150 ml",i:"caldo de pescado"},{q:"2 cdas",i:"aceite de oliva"}],
+          steps:["Dorar el ajo picado en aceite sin que se queme. Añadir el perejil picado, el vino blanco y el caldo. Reducir 2 min.","Colocar los lomos de merluza con la piel hacia arriba. Añadir las almejas, los espárragos y los guisantes. Tapar.","Cocer 7–8 min a fuego medio-bajo agitando la cazuela para que la salsa ligue. Espolvorear perejil fresco."]}
+      }
+    },
+    {
+      name:"Jueves",short:"Jue",exercise:{type:"pilates",label:"Pilates",emoji:"🧘"},kcal:1960,
+      meals:{
+        desayuno:{name:"Batido de plátano, avena, canela y leche de almendras",kcal:350,protein:12,carbs:52,fat:12,time:"5 min",ahead:false,
+          ing:[{q:"1",i:"plátano maduro"},{q:"40 g",i:"copos de avena"},{q:"200 ml",i:"leche de almendras"},{q:"1 cdta",i:"canela molida"},{q:"1 cdta",i:"miel"},{q:"hielo",i:"al gusto (opcional)"}],
+          steps:["Triturar todos los ingredientes hasta que quede completamente homogéneo y cremoso.","Servir inmediatamente para que la avena no espese demasiado."]},
+        comida:{name:"Quinoa con verduras asadas al horno y queso feta",kcal:440,protein:20,carbs:50,fat:16,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"100 g",i:"quinoa"},{q:"1",i:"calabacín en dados"},{q:"1",i:"pimiento rojo en dados"},{q:"1",i:"cebolla morada en trozos"},{q:"60 g",i:"queso feta"},{q:"tomillo",i:"fresco o seco"},{q:"2 cdas",i:"aceite de oliva"},{q:"1",i:"limón"}],
+          steps:["Cocer la quinoa 15 min en el doble de agua con sal. Escurrir y enfriar.","Mezclar las verduras con aceite y tomillo. Asar a 200 °C durante 25 min. Enfriar.","Mezclar la quinoa con las verduras asadas ya frías, el feta desmenuzado y zumo de limón. Guardar en tupper."]},
+        merienda:{name:"Manzana con tahini y sésamo",kcal:200,protein:5,carbs:26,fat:8,time:"3 min",ahead:false,
+          ing:[{q:"1",i:"manzana golden"},{q:"2 cdas",i:"tahini"},{q:"½",i:"limón"},{q:"1 cdta",i:"semillas de sésamo"}],
+          steps:["Mezclar el tahini con zumo de limón y un poco de agua hasta textura cremosa.","Cortar la manzana en gajos y dipear. Espolvorear el sésamo."]},
+        cena:{name:"Rape a la americana con salsa de tomate, brandy y pimiento",kcal:510,protein:44,carbs:16,fat:26,time:"35 min",ahead:false,
+          ing:[{q:"500 g",i:"rape en trozos (sin cabeza)"},{q:"2",i:"tomates maduros troceados"},{q:"1",i:"cebolla"},{q:"1",i:"pimiento rojo"},{q:"2 dientes",i:"ajo"},{q:"50 ml",i:"brandy o coñac"},{q:"150 ml",i:"caldo de pescado"},{q:"1 cdta",i:"pimentón de la Vera"},{q:"2 cdas",i:"aceite de oliva"}],
+          steps:["Salpimentar el rape y dorar en aceite muy caliente 2 min por lado. Retirar. En la misma sartén, sofrír la cebolla, el ajo y el pimiento 8 min.","Añadir el tomate y cocinar 5 min. Verter el brandy y dejar evaporar el alcohol 2 min. Añadir el caldo y el pimentón.","Incorporar el rape. Cocer tapado a fuego medio 8 min. La salsa debe quedar espesa y rojiza."]}
+      }
+    },
+    {
+      name:"Viernes",short:"Vie",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1980,
+      meals:{
+        desayuno:{name:"Tortitas de avena con arándanos y sirope de arce",kcal:370,protein:14,carbs:54,fat:12,time:"20 min",ahead:false,
+          ing:[{q:"80 g",i:"copos de avena (triturados en harina)"},{q:"2",i:"huevos"},{q:"100 ml",i:"leche"},{q:"1 cdta",i:"levadura en polvo"},{q:"1 cdta",i:"canela"},{q:"150 g",i:"arándanos frescos"},{q:"2 cdas",i:"sirope de arce"}],
+          steps:["Triturar los copos de avena hasta obtener harina fina. Mezclar con los huevos, la leche, la levadura y la canela hasta obtener una masa homogénea.","Calentar una sartén antiadherente con unas gotas de aceite. Verter pequeñas cantidades de masa y cocinar 2 min por lado hasta que estén doradas.","Servir con los arándanos y el sirope de arce."]},
+        comida:{name:"Ensalada de lentejas con pepino, cebolla morada e hierbabuena",kcal:450,protein:22,carbs:48,fat:16,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"150 g",i:"lentejas verdes o pardinas"},{q:"1",i:"pepino en daditos"},{q:"½",i:"cebolla morada en brunoise"},{q:"hierbabuena fresca",i:"al gusto"},{q:"2 cdas",i:"aceite de oliva"},{q:"1",i:"limón"},{q:"1 cdta",i:"comino molido"},{q:"sal",i:"al gusto"}],
+          steps:["Cocer las lentejas 25 min en agua fría con sal. Escurrir y enfriar.","Mezclar las lentejas con el pepino, la cebolla y la hierbabuena picada fina.","Aliñar con aceite, limón y comino. Guardar en tupper en nevera."]},
+        merienda:{name:"Fruta de temporada con pistachos",kcal:210,protein:5,carbs:24,fat:10,time:"2 min",ahead:false,
+          ing:[{q:"2 piezas",i:"fruta de temporada"},{q:"20 g",i:"pistachos sin sal"}],
+          steps:["Comer la fruta de temporada con los pistachos."]},
+        cena:{name:"Magret de pato con salsa de naranja y arroz salvaje",kcal:550,protein:40,carbs:26,fat:28,time:"40 min",ahead:false,
+          ing:[{q:"1",i:"magret de pato (~350 g)"},{q:"2",i:"naranjas (zumo + piel de una)"},{q:"1 cda",i:"miel"},{q:"100 ml",i:"caldo de pollo"},{q:"80 g",i:"arroz salvaje o negro"},{q:"sal, pimienta negra",i:"al gusto"}],
+          steps:["Cocer el arroz salvaje según instrucciones (30–35 min). Sazonar con aceite y sal al terminar.","Hacer un enrejado de cortes en la grasa del magret sin llegar a la carne. Colocar en sartén fría con la piel hacia abajo a fuego medio-alto. Cocinar 8–10 min hasta que la grasa esté fundida y dorada. Dar la vuelta y cocinar 4 min (punto medio). Reposar 5 min antes de cortar.","Para la salsa: en la misma sartén sin grasa, añadir el zumo de naranja, la ralladura, la miel y el caldo. Reducir 5 min a fuego vivo hasta que espese. Servir el magret fileteado con la salsa y el arroz."]}
+      }
+    },
+    {
+      name:"Sábado",short:"Sáb",exercise:{type:"walk",label:"Caminata 7 km",emoji:"🚶"},kcal:1990,
+      meals:{
+        desayuno:{name:"Shakshuka de espinacas y feta con pan de espelta",kcal:380,protein:22,carbs:30,fat:16,time:"25 min",ahead:false,
+          ing:[{q:"3",i:"huevos"},{q:"150 g",i:"espinacas baby"},{q:"1 lata (400 g)",i:"tomate triturado"},{q:"1",i:"cebolla"},{q:"2 dientes",i:"ajo"},{q:"1 cdta",i:"comino molido"},{q:"½ cdta",i:"pimentón"},{q:"60 g",i:"queso feta"},{q:"2 rebanadas",i:"pan de espelta"}],
+          steps:["Sofrír la cebolla y el ajo picados en aceite 5 min. Añadir las especias y tostar 1 min. Incorporar el tomate y cocinar 8 min.","Añadir las espinacas y dejar que se reduzcan 2 min. Hacer 3 hoyos, cascar un huevo en cada uno. Tapar y cocer a fuego bajo 5–6 min: claras cuajadas, yemas líquidas.","Desmenuzar el feta por encima. Servir en la misma sartén con el pan tostado para mojar."]},
+        comida:{name:"Crema de espárragos verdes con gambas salteadas y eneldo",kcal:390,protein:26,carbs:28,fat:16,time:"30 min (prep día anterior)",ahead:true,
+          ing:[{q:"1 manojo grande",i:"espárragos verdes"},{q:"1",i:"puerro"},{q:"600 ml",i:"caldo de verduras"},{q:"150 g",i:"gambas peladas"},{q:"eneldo fresco",i:"al gusto"},{q:"2 cdas",i:"aceite de oliva"},{q:"sal, pimienta blanca",i:"al gusto"}],
+          steps:["Sofrír el puerro en aceite 5 min. Añadir los espárragos troceados (reservar las puntas) y el caldo. Cocer 15 min. Triturar muy fino. Guardar en nevera.","Al servir: calentar la crema. Saltear las gambas en sartén muy caliente con aceite y sal 1 min por lado.","Servir la crema con las gambas y las puntas de espárrago salteadas. Terminar con el eneldo."]},
+        merienda:{name:"Yogur griego con miel y pistachos",kcal:190,protein:10,carbs:16,fat:8,time:"2 min",ahead:false,
+          ing:[{q:"150 g",i:"yogur griego natural"},{q:"1 cdta",i:"miel"},{q:"15 g",i:"pistachos sin sal troceados"}],
+          steps:["Poner el yogur en un bol. Añadir la miel y los pistachos."]},
+        cena:{name:"Fideuà de marisco con sepia, mejillones y gambas",kcal:590,protein:42,carbs:48,fat:22,time:"45 min",ahead:false,
+          ing:[{q:"200 g",i:"fideos cabello de ángel (nº 2 o 3)"},{q:"200 g",i:"sepia limpia en trozos"},{q:"200 g",i:"mejillones"},{q:"150 g",i:"gambas peladas"},{q:"1",i:"pimiento rojo"},{q:"1",i:"tomate maduro rallado"},{q:"2 dientes",i:"ajo"},{q:"1 sobrecito",i:"azafrán"},{q:"600 ml",i:"caldo de pescado caliente"},{q:"1 cdta",i:"pimentón de la Vera"},{q:"3 cdas",i:"aceite de oliva"}],
+          steps:["En paellera o sartén amplia, sofrír el ajo, el pimiento picado y el tomate 10 min. Añadir la sepia y saltear 3 min.","Incorporar los fideos y tostarlos 2 min removiendo. Añadir el pimentón, el azafrán y el caldo caliente. Cocer a fuego medio-alto 8 min sin remover.","Los últimos 3 min, añadir las gambas y los mejillones. Subir el fuego para que los fideos queden ligeramente tostados (socarrat). Servir inmediatamente."]}
+      }
+    },
+    {
+      name:"Domingo",short:"Dom",exercise:{type:"rest",label:"Descanso",emoji:"💤"},kcal:1870,
+      meals:{
+        desayuno:{name:"Crepes integrales con frutos rojos y requesón",kcal:390,protein:16,carbs:50,fat:14,time:"25 min",ahead:false,
+          ing:[{q:"2",i:"huevos"},{q:"200 ml",i:"leche"},{q:"80 g",i:"harina integral de trigo"},{q:"1 cdta",i:"azúcar"},{q:"1 cdta",i:"mantequilla (para la sartén)"},{q:"150 g",i:"frutos rojos (frescos o descongelados)"},{q:"100 g",i:"requesón"},{q:"1 cda",i:"miel"}],
+          steps:["Batir los huevos con la leche, la harina y el azúcar hasta obtener una masa sin grumos. Reposar 10 min.","Cocinar en sartén antiadherente con un poco de mantequilla: verter un cucharón y extender en círculo. Dorar 1–2 min por lado.","Rellenar los crepes con el requesón y los frutos rojos. Doblar en cuartos y añadir miel por encima."]},
+        comida:{name:"Cocido ligero de garbanzos, verduras y panceta",kcal:540,protein:28,carbs:58,fat:18,time:"55 min",ahead:false,
+          ing:[{q:"1 bote (400 g)",i:"garbanzos cocidos"},{q:"2",i:"patatas medianas"},{q:"2",i:"zanahorias"},{q:"¼",i:"berza o repollo"},{q:"60 g",i:"panceta curada"},{q:"1 litro",i:"caldo de pollo"},{q:"50 g",i:"fideos finos (para la sopa)"},{q:"sal, aceite",i:"al gusto"}],
+          steps:["Poner en cazuela el caldo con la panceta, las patatas y las zanahorias troceadas y la berza. Cocer 20 min.","Añadir los garbanzos y cocer 10 min más. Retirar un poco del caldo y cocer los fideos en él aparte.","Servir primero la sopa de fideos como primer plato y después los garbanzos con las verduras y la panceta con un hilo de aceite."]},
+        merienda:{name:"Fruta de temporada",kcal:130,protein:1,carbs:30,fat:0,time:"1 min",ahead:false,
+          ing:[{q:"2 piezas",i:"fruta fresca de temporada"}],
+          steps:["Disfrutar de la fruta de temporada."]},
+        cena:{name:"Crema de calabaza con jengibre, leche de coco y tostadas",kcal:490,protein:10,carbs:46,fat:26,time:"30 min",ahead:false,
+          ing:[{q:"600 g",i:"calabaza troceada"},{q:"1",i:"cebolla"},{q:"2 cm",i:"jengibre fresco rallado"},{q:"200 ml",i:"leche de coco"},{q:"400 ml",i:"caldo de verduras"},{q:"2 cdas",i:"aceite de oliva"},{q:"sal, pimienta",i:"al gusto"},{q:"30 g",i:"semillas de calabaza tostadas"},{q:"2",i:"tostadas de centeno"}],
+          steps:["Sofrír la cebolla y el jengibre en aceite 5 min. Añadir la calabaza troceada y el caldo. Cocer 20 min hasta que esté muy tierna.","Triturar hasta que quede muy fina. Añadir la leche de coco y mezclar bien. Calentar y ajustar de sal y pimienta.","Servir con las semillas de calabaza tostadas y las tostadas de centeno al lado."]}
+      }
+    }
+  ]
+};
+
+const WEEKS = [W1, W2, W3, W4];
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let curWeek = 0;
+let curDay = 0;
+let showShop = false;
+let shopTrip = 'trip1';
+let shopChecked = {};
+let mealDone = {};
+let mealDisliked = {};
+let mealSubs = {};   // key: "w-d-type" → {w, d} source week/day for substituted meal
+let pantryItems = {};
+
+function loadState() {
+  try {
+    const s = JSON.parse(localStorage.getItem('plannerState') || '{}');
+    mealDone     = s.mealDone     || {};
+    mealDisliked = s.mealDisliked || {};
+    mealSubs     = s.mealSubs     || {};
+    pantryItems  = s.pantryItems  || {};
+    shopChecked  = s.shopChecked  || {};
+  } catch(e) {}
+}
+function saveState() {
+  try { localStorage.setItem('plannerState', JSON.stringify({mealDone, mealDisliked, mealSubs, pantryItems, shopChecked})); } catch(e) {}
+}
+loadState();
+
+// ═══════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════
+function getWeek() { return WEEKS[curWeek]; }
+function getDay() { return getWeek().days[curDay]; }
+
+function renderDayPills() {
+  const week = getWeek();
+  const container = document.getElementById('dayPills');
+  container.innerHTML = '';
+  week.days.forEach((day, i) => {
+    const pill = document.createElement('button');
+    pill.className = 'day-pill' + (i === curDay ? ' active' : '');
+    pill.setAttribute('aria-pressed', i === curDay ? 'true' : 'false');
+    const badgeCls = `dp-${day.exercise.type}`;
+    pill.innerHTML = `
+      <span class="dp-short">${day.short}</span>
+      <span class="dp-num">${i + 1}</span>
+      <span class="dp-badge ${badgeCls}">${day.exercise.emoji}</span>`;
+    pill.addEventListener('click', () => { curDay = i; renderAll(); });
+    container.appendChild(pill);
+  });
+}
+
+const MEAL_ORDER = ['desayuno','comida','merienda','cena'];
+const MEAL_LABELS = {desayuno:'Desayuno',comida:'Comida',merienda:'Merienda',cena:'Cena'};
+
+// Find the best alternative meal (same type, different week/day, not disliked, closest kcal)
+function findMealAlternative(mealType, excludeWeek, excludeDay) {
+  const origKcal = WEEKS[excludeWeek].days[excludeDay].meals[mealType].kcal;
+  const candidates = [];
+  WEEKS.forEach((week, wi) => {
+    week.days.forEach((day, di) => {
+      if (wi === excludeWeek && di === excludeDay) return;
+      const key = `${wi}-${di}-${mealType}`;
+      if (mealDisliked[key]) return;
+      candidates.push({ w: wi, d: di, meal: day.meals[mealType] });
+    });
+  });
+  if (!candidates.length) return null;
+  candidates.sort((a, b) => Math.abs(a.meal.kcal - origKcal) - Math.abs(b.meal.kcal - origKcal));
+  return candidates[0];
+}
+
+function renderMealGrid() {
+  const day = getDay();
+  const grid = document.getElementById('mealGrid');
+  grid.innerHTML = '';
+
+  MEAL_ORDER.forEach(type => {
+    const doneKey    = `${curWeek}-${curDay}-${type}`;
+    const isDone     = !!mealDone[doneKey];
+    const isDisliked = !!mealDisliked[doneKey];
+    const sub        = mealSubs[doneKey];  // { w, d } or undefined
+
+    // Use substitute meal for display if set, else original
+    const m = sub ? WEEKS[sub.w].days[sub.d].meals[type] : day.meals[type];
+    // For modal: open the meal that's actually displayed
+    const openWeek = sub ? sub.w : curWeek;
+    const openDay  = sub ? sub.d : curDay;
+
+    const card = document.createElement('div');
+    card.className = 'meal-card'
+      + (type === 'cena' ? ' cena-card' : '')
+      + (isDone     ? ' done'     : '')
+      + (isDisliked ? ' disliked' : '');
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-label',`Ver receta: ${m.name}`);
+
+    const altBadge = sub
+      ? `<div class="mc-alt-badge">🔄 Alternativa · S${sub.w+1} D${sub.d+1}</div>`
+      : '';
+
+    card.innerHTML = `
+      ${altBadge}
+      <div class="mc-type">${MEAL_LABELS[type]}</div>
+      <div class="mc-name">${m.name}</div>
+      <div class="mc-footer">
+        <span class="mc-kcal">${m.kcal} kcal</span>
+        <span class="mc-right">
+          ${m.ahead ? '<span class="mc-prep-tag">prep. anterior</span>' : `<span class="mc-prep">${m.time}</span>`}
+          <span class="mc-arrow">→</span>
+        </span>
+      </div>
+      <div class="mc-done-wrap">
+        <button class="mc-done-btn${isDone ? ' done' : ''}">${isDone ? '✓ Hecho' : '○ Marcar hecho'}</button>
+        <button class="mc-dislike-btn${isDisliked ? ' active' : ''}">${sub ? '← Restaurar original' : (isDisliked ? '👎 No me gusta' : '✕ No me gusta')}</button>
+      </div>`;
+
+    // Open modal for the displayed meal
+    const openCard = () => openModal(type, openWeek, openDay);
+    card.addEventListener('click', e => { if (!e.target.closest('.mc-done-wrap')) openCard(); });
+    card.addEventListener('keydown', e => { if ((e.key==='Enter'||e.key===' ') && !e.target.closest('.mc-done-wrap')) { e.preventDefault(); openCard(); } });
+
+    // Done toggle
+    card.querySelector('.mc-done-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      mealDone[doneKey] = !mealDone[doneKey];
+      saveState();
+      renderDayHeader();
+      renderMealGrid();
+    });
+
+    // Dislike → auto-substitute / restore original
+    card.querySelector('.mc-dislike-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      if (sub) {
+        // Restore original
+        delete mealDisliked[doneKey];
+        delete mealSubs[doneKey];
+      } else {
+        mealDisliked[doneKey] = true;
+        const alt = findMealAlternative(type, curWeek, curDay);
+        if (alt) mealSubs[doneKey] = { w: alt.w, d: alt.d };
+      }
+      saveState();
+      renderMealGrid();
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+function renderDayHeader() {
+  const day = getDay();
+  document.getElementById('dayTitle').textContent = day.name;
+  const chip = document.getElementById('excChip');
+  chip.className = `exc-chip exc-${day.exercise.type}`;
+  chip.textContent = `${day.exercise.emoji} ${day.exercise.label}`;
+  const kcal = document.getElementById('kcalChip');
+  kcal.textContent = `~${day.kcal} kcal/día`;
+
+  const doneTypes = MEAL_ORDER.filter(t => mealDone[`${curWeek}-${curDay}-${t}`]);
+  const prog = document.getElementById('dayProgress');
+  if (doneTypes.length > 0) {
+    const kcalEaten    = doneTypes.reduce((s,t) => s + day.meals[t].kcal,    0);
+    const proteinEaten = doneTypes.reduce((s,t) => s + day.meals[t].protein, 0);
+    const totalProtein = MEAL_ORDER.reduce((s,t) => s + day.meals[t].protein, 0);
+    const pct = Math.min(100, Math.round(kcalEaten / day.kcal * 100));
+    const remaining = day.kcal - kcalEaten;
+    prog.innerHTML = `
+      <div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+      <div class="prog-labels">
+        <span>${kcalEaten} kcal comidas (${pct}%)</span>
+        <span>${remaining > 0 ? `faltan ${remaining} kcal` : '✓ objetivo alcanzado'}</span>
+      </div>
+      <div class="prog-sub">Proteína: ${proteinEaten}g de ${totalProtein}g totales del día · ${doneTypes.length}/${MEAL_ORDER.length} comidas</div>`;
+    prog.hidden = false;
+  } else {
+    prog.hidden = true;
+  }
+}
+
+// For a given pantry item, classify how it should appear in the current week's shopping list
+// Returns: 'new' (first time this week), 'replenish' (used every week), 'skip' (already bought earlier)
+function pantryItemStatus(itemName, weekIdx) {
+  const key = itemName.toLowerCase().trim();
+  const map = buildItemWeekMap();
+  const weeks = map[key] || [weekIdx + 1];
+  const firstWeek = Math.min(...weeks);
+  const usedEveryWeek = weeks.length === WEEKS.length;
+  if (usedEveryWeek) return 'replenish';
+  if (firstWeek === weekIdx + 1) return 'new';
+  return 'skip';
+}
+
+// Build a map: normalized item name → array of week numbers (1-based) where it appears
+function buildItemWeekMap() {
+  const map = {};
+  WEEKS.forEach((week, wi) => {
+    ['trip1', 'trip2'].forEach(tk => {
+      if (!week.shopping[tk]) return;
+      Object.values(week.shopping[tk].cats).forEach(cat => {
+        cat.items.forEach(item => {
+          const key = item.name.toLowerCase().trim();
+          if (!map[key]) map[key] = [];
+          if (!map[key].includes(wi + 1)) map[key].push(wi + 1);
+        });
+      });
+    });
+  });
+  return map;
+}
+
+function renderShopping() {
+  const week = getWeek();
+  document.getElementById('shopTitle').textContent = 'Lista de la compra';
+  const grid = document.getElementById('shopGrid');
+  grid.innerHTML = '';
+
+  // ── Tabs: two trips only ──
+  const tabs = document.createElement('div');
+  tabs.className = 'trip-tabs';
+  const freshRow = document.createElement('div');
+  freshRow.className = 'trip-tabs-row';
+  ['trip1','trip2'].forEach(tk => {
+    const t = week.shopping[tk];
+    const btn = document.createElement('button');
+    btn.className = 'trip-tab' + (tk === shopTrip ? ' active' : '');
+    btn.innerHTML = `
+      <div class="trip-tab-label">${tk === 'trip1' ? '🛒 Compra del Lunes' : '🔄 Reposición del Jueves'}</div>
+      <div class="trip-tab-name">${t.label}</div>
+      <div class="trip-tab-desc">${t.desc}</div>`;
+    btn.addEventListener('click', () => { shopTrip = tk; renderShopping(); });
+    freshRow.appendChild(btn);
+  });
+  tabs.appendChild(freshRow);
+  grid.appendChild(tabs);
+
+  document.getElementById('shopSub').textContent = `${week.label} · Haz clic para marcar lo que ya tienes`;
+
+  // ── Weekly items ──
+  const trip = week.shopping[shopTrip];
+  // Pantry categories handled with smart logic (show inline, not skip)
+  const PANTRY_CATS = new Set(['cereales','despensa']);
+
+  // Build reuse map once per render
+  const itemWeekMap = buildItemWeekMap();
+
+  // Categories for current trip
+  Object.entries(trip.cats).forEach(([catKey, cat]) => {
+    const isPantryCat = PANTRY_CATS.has(catKey);
+
+    // Filter items for pantry categories using smart status logic
+    let visibleItems = [];
+    cat.items.forEach((item, j) => {
+      if (isPantryCat) {
+        const status = pantryItemStatus(item.name, curWeek);
+        if (status === 'skip') return; // bought in a previous week — hide
+        visibleItems.push({ item, j, pantryStatus: status });
+      } else {
+        visibleItems.push({ item, j, pantryStatus: null });
+      }
+    });
+
+    if (visibleItems.length === 0) return; // skip empty categories
+
+    const checked = visibleItems.filter(({j}) => shopChecked[`${curWeek}-${shopTrip}-${catKey}-${j}`]).length;
+    const card = document.createElement('div');
+    card.className = 'shop-cat';
+    const hdr = document.createElement('div');
+    hdr.className = 'cat-hdr';
+    hdr.innerHTML = `<span class="cat-icon">${cat.icon}</span><span class="cat-name">${cat.name}</span><span class="cat-count">${checked}/${visibleItems.length}</span>`;
+    card.appendChild(hdr);
+    const list = document.createElement('div');
+    list.className = 'cat-items';
+
+    visibleItems.forEach(({ item, j, pantryStatus }) => {
+      const ck        = shopChecked[`${curWeek}-${shopTrip}-${catKey}-${j}`];
+      const isPantry  = !!pantryItems[item.name];
+      const usedInWeeks = itemWeekMap[item.name.toLowerCase().trim()] || [curWeek + 1];
+      const wCount = usedInWeeks.length;
+
+      let reuseHtml = '';
+      if (pantryStatus === 'replenish') {
+        // Pantry staple used every week — show as reminder
+        reuseHtml = `<span class="si-reuse all">🔄 Básico · reponer si necesario</span>`;
+      } else if (pantryStatus === 'new') {
+        // First week this pantry item appears
+        const future = usedInWeeks.filter(w => w >= curWeek + 1);
+        reuseHtml = `<span class="si-reuse multi">🆕 Nuevo · alcanza para S${future.join('+')}</span>`;
+      } else {
+        // Fresh category — show reuse across weeks
+        if (wCount === 4) {
+          reuseHtml = `<span class="si-reuse all">✓ Se usa las 4 semanas</span>`;
+        } else if (wCount >= 2) {
+          reuseHtml = `<span class="si-reuse multi">Se usa en: ${usedInWeeks.map(w=>'S'+w).join(' · ')}</span>`;
+        } else {
+          reuseHtml = `<span class="si-reuse solo">⚠ Solo en S${usedInWeeks[0]} — compra poco</span>`;
+        }
+      }
+
+      const row = document.createElement('div');
+      row.className = 'shop-item' + (ck ? ' checked' : '') + (isPantry ? ' pantry-item' : '');
+      row.innerHTML = `
+        <div class="si-check">${ck ? '✓' : ''}</div>
+        <div class="si-info">
+          <div class="si-name">${item.name}</div>
+          ${item.qty ? `<div class="si-qty">${item.qty}</div>` : ''}
+          ${reuseHtml}
+          ${item.sub && item.sub !== '—' ? `<div class="si-sub">✦ Alt: ${item.sub}</div>` : ''}
+        </div>
+        <button class="si-pantry-btn${isPantry ? ' in-pantry' : ''}" title="${isPantry ? 'Quitar de despensa fija' : 'Ya lo tengo en casa siempre'}">🏠</button>`;
+
+      // Toggle checked (click on check or info, not pantry btn)
+      row.querySelector('.si-check').addEventListener('click', () => {
+        const k = `${curWeek}-${shopTrip}-${catKey}-${j}`;
+        shopChecked[k] = !shopChecked[k]; saveState(); renderShopping();
+      });
+      row.querySelector('.si-info').addEventListener('click', () => {
+        const k = `${curWeek}-${shopTrip}-${catKey}-${j}`;
+        shopChecked[k] = !shopChecked[k]; saveState(); renderShopping();
+      });
+
+      // Toggle pantry
+      row.querySelector('.si-pantry-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        pantryItems[item.name] = !pantryItems[item.name]; saveState(); renderShopping();
+      });
+
+      list.appendChild(row);
+    });
+    card.appendChild(list);
+    grid.appendChild(card);
+  });
+}
+
+function renderAll() {
+  document.getElementById('weekLabel').textContent = getWeek().label;
+  renderDayPills();
+  if (!showShop) {
+    renderDayHeader();
+    renderMealGrid();
+  } else {
+    renderShopping();
+  }
+}
+
+// ═══════════════════════════════════════════
+// VIEW TOGGLE
+// ═══════════════════════════════════════════
+function setView(shop) {
+  showShop = shop;
+  document.getElementById('dietView').hidden = shop;
+  document.getElementById('shopView').hidden = !shop;
+  document.getElementById('dayNav').style.display = shop ? 'none' : '';
+  const btnD = document.getElementById('toggleDiet');
+  const btnS = document.getElementById('toggleShop');
+  if (shop) {
+    btnD.className = 'btn btn-ghost';
+    btnS.className = 'btn btn-active';
+    renderShopping();
+  } else {
+    btnD.className = 'btn btn-active';
+    btnS.className = 'btn btn-ghost';
+    renderDayHeader();
+    renderMealGrid();
+  }
+}
+
+document.getElementById('toggleDiet').addEventListener('click', () => setView(false));
+document.getElementById('toggleShop').addEventListener('click', () => setView(true));
+
+// ═══════════════════════════════════════════
+// WEEK NAV
+// ═══════════════════════════════════════════
+document.getElementById('prevWeek').addEventListener('click', () => {
+  curWeek = (curWeek - 1 + WEEKS.length) % WEEKS.length;
+  curDay = 0;
+  renderAll();
+});
+document.getElementById('nextWeek').addEventListener('click', () => {
+  curWeek = (curWeek + 1) % WEEKS.length;
+  curDay = 0;
+  renderAll();
+});
+
+// ═══════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════
+function openModal(type, weekIdx, dayIdx) {
+  const w = (weekIdx !== undefined) ? weekIdx : curWeek;
+  const d = (dayIdx  !== undefined) ? dayIdx  : curDay;
+  const m = WEEKS[w].days[d].meals[type];
+  const ov = document.getElementById('modalOv');
+  const content = document.getElementById('modalContent');
+  content.innerHTML = `
+    <div class="m-hdr">
+      <div class="m-mtype">${MEAL_LABELS[type]}</div>
+      <h2 class="m-title">${m.name}</h2>
+      <div class="m-chips">
+        <span class="m-chip accent">⏱ ${m.time}</span>
+        <span class="m-chip">${m.kcal} kcal</span>
+        ${m.ahead ? '<span class="m-chip gold">⭐ Preparar el día anterior</span>' : ''}
+      </div>
+    </div>
+    <div class="macros">
+      <div class="macro"><div class="macro-val">${m.kcal}</div><div class="macro-lbl">kcal</div></div>
+      <div class="macro"><div class="macro-val">${m.protein}g</div><div class="macro-lbl">Proteína</div></div>
+      <div class="macro"><div class="macro-val">${m.carbs}g</div><div class="macro-lbl">HC</div></div>
+      <div class="macro"><div class="macro-val">${m.fat}g</div><div class="macro-lbl">Grasas</div></div>
+    </div>
+    <div class="m-sec">
+      <div class="m-sec-ttl">Ingredientes (1 persona)</div>
+      <ul class="ing-list">${m.ing.map(it=>`<li class="ing-row"><span class="ing-qty">${it.q}</span><span class="ing-name">${it.i}</span></li>`).join('')}</ul>
+    </div>
+    <div class="m-sec">
+      <div class="m-sec-ttl">Elaboración</div>
+      <div class="step-list">${m.steps.map((s,i)=>`<div class="step"><span class="step-n">${i+1}</span><span class="step-txt">${s}</span></div>`).join('')}</div>
+    </div>`;
+  ov.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalClose').focus();
+}
+
+function closeModal() {
+  document.getElementById('modalOv').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalOv').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+setView(false);
+renderAll();
+</script>
